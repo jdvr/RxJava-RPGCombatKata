@@ -5,13 +5,13 @@ import es.juandavidvega.rpgcombat.engine.Event;
 
 public class IncreaseLifeEvent implements Event {
 
-    private final Integer points;
+    private final Double points;
 
-    public IncreaseLifeEvent(Integer points) {
+    public IncreaseLifeEvent(Double points) {
         this.points = points;
     }
 
-    public Integer points () {
+    public Double points () {
         return points;
     }
 

@@ -5,9 +5,9 @@ import es.juandavidvega.rpgcombat.character.Character;
 public class HealthAction {
 
     private final Character healer;
-    private final Integer points;
+    private final Double points;
 
-    public HealthAction(Character healer, Integer points) {
+    public HealthAction(Character healer, Double points) {
         this.healer = healer;
         this.points = points;
     }
@@ -16,7 +16,7 @@ public class HealthAction {
         return healer;
     }
 
-    public Integer points() {
+    public Double points() {
         return points;
     }
 }

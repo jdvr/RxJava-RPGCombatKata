@@ -11,12 +11,39 @@ import rx.Subscription;
 public class Character {
 
     private Health health;
+    private Integer level;
     private final Subscriptions subscriptions = new Subscriptions();
 
-    public Character(Health health) {
+    public Character(Health health, Integer level) {
         this.health = health;
+        this.level = level;
         listenDamages();
         listenHealth();
+    }
+
+    public void receive(Double damage) {
+        health.subtract(damage);
+        if(AmIDead()) subscriptions.unsubscribeAll();
+    }
+
+    public boolean isAlive() {
+        return health.isAlive();
+    }
+
+    public Health health() {
+        return health;
+    }
+
+    public Integer level() {
+        return level;
+    }
+
+    public void health(Double health) {
+        this.health.add(health);
+    }
+
+    private boolean AmIDead() {
+        return !isAlive();
     }
 
     private void listenHealth() {
@@ -43,24 +70,4 @@ public class Character {
         this.health(event.points());
     }
 
-    public void receive(Integer damage) {
-        health.subtract(damage);
-        if(AmIDead()) subscriptions.unsubscribeAll();
-    }
-
-    public boolean isAlive() {
-        return health.isAlive();
-    }
-
-    public Health health() {
-        return health;
-    }
-
-    public void health(Integer health) {
-        this.health.add(health);
-    }
-
-    private boolean AmIDead() {
-        return !isAlive();
-    }
 }

@@ -9,9 +9,9 @@ import es.juandavidvega.rpgcombat.engine.Event;
 public class DamageEvent implements Event {
 
     private final Character target;
-    private final Integer points;
+    private final Double points;
 
-    public DamageEvent(Character target, Integer points){
+    public DamageEvent(Character target, double points){
         this.target = target;
         this.points = points;
     }
@@ -20,7 +20,7 @@ public class DamageEvent implements Event {
         return target;
     }
 
-    public Integer points() {
+    public Double points() {
         return points;
     }
 

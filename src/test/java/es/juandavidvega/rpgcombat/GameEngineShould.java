@@ -39,7 +39,7 @@ public class GameEngineShould {
     @Test
     public void
     avoid_to_character_damage_to_himself() {
-        Integer pointsBeforeAttack = attacker.health().points();
+        double pointsBeforeAttack = attacker.health().points();
         Attack attack = new Attack(attacker, 100);
         engine.perform(new AttackEvent(attack, attacker));
         assertThat(attacker.health().points()).isEqualTo(pointsBeforeAttack);
@@ -49,11 +49,21 @@ public class GameEngineShould {
     public void
     send_health_to_character_when_he_heath_himself() {
         Character lowHealthCharacter = CharacterTestBuilder.newCharacterWith(CharacterTestBuilder.customHealth(700));
-        Integer pointsBeforeAttack = lowHealthCharacter.health().points();
-        Integer addedPoints = 50;
+        double pointsBeforeAttack = lowHealthCharacter.health().points();
+        double addedPoints = 50;
         HealthAction health = new HealthAction(lowHealthCharacter, addedPoints);
         engine.perform(new HealthEvent(health, lowHealthCharacter));
         assertThat(lowHealthCharacter.health().points()).isEqualTo(pointsBeforeAttack + addedPoints);
+    }
+
+    @Test
+    public void
+    send_attack_with_reduced_damage_when_attacker_is_at_least_five_level_above_target() {
+        attacker = CharacterTestBuilder.newCharacterWith(CharacterTestBuilder.maxHealth(), 40);
+        target = CharacterTestBuilder.newCharacterWith(CharacterTestBuilder.maxHealth(), 50);
+        Attack attack = new Attack(attacker, 100);
+        engine.perform(new AttackEvent(attack, target));
+        assertThat(target.health().points()).isEqualTo(950);
     }
 
     @After

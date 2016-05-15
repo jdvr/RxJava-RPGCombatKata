@@ -29,4 +29,8 @@ public class AttackEvent implements Event {
     public EventTypes type() {
         return EventTypes.Attack;
     }
+
+    public boolean attackerIsAtLeastFiveLevelAboveTarget() {
+        return target.level() - attack.attacker().level() >= 5;
+    }
 }

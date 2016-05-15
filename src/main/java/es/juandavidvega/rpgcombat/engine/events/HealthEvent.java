@@ -29,7 +29,7 @@ public class HealthEvent implements Event {
         return EventTypes.Health;
     }
 
-    public Integer points() {
+    public Double points() {
         return health.points();
     }
 }

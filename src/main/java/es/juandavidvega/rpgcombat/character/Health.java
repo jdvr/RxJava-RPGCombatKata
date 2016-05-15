@@ -2,21 +2,21 @@ package es.juandavidvega.rpgcombat.character;
 
 public class Health {
 
-    public static final Integer MAX_HEALTH_POINTS = 1000;
-    public static final Integer MIN_HEALTH_POINTS = 0;
+    public static final Double MAX_HEALTH_POINTS = 1000.0;
+    public static final Double MIN_HEALTH_POINTS = .0;
     
-    private Integer points;
+    private Double points;
 
-    public Health(Integer points) {
+    public Health(Double points) {
         this.points = points;
     }
 
-    public void subtract(Integer damage) {
+    public void subtract(Double damage) {
         points -= damage;
         sanitizeHealth();
     }
 
-    public void add(Integer points) {
+    public void add(Double points) {
         if(isDead()) return;
         this.points += points;
         sanitizeHealth();
@@ -32,18 +32,18 @@ public class Health {
     }
 
     private void checkMinHealth() {
-        if (points < 0) points = 0;
+        if (points < 0) points = 0d;
     }
 
     private void checkMaxHealth() {
-        if (points > 1000) points = 1000;
+        if (points > 1000) points = 1000d;
     }
 
     public boolean isDead() {
         return !isAlive();
     }
 
-    public Integer points (){
+    public Double points (){
         return points;
     }
 

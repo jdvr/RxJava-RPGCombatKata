@@ -29,7 +29,9 @@ public class GameEngine {
     }
 
     private void sendDamage(AttackEvent event) {
-        bus.send(new DamageEvent(event.target(), event.points()));
+        double damage = event.points();
+        if(event.attackerIsAtLeastFiveLevelAboveTarget()) damage = damage * 0.5;
+        bus.send(new DamageEvent(event.target(), damage));
     }
 
     private void sendHealth(HealthEvent event) {

@@ -6,7 +6,11 @@ import es.juandavidvega.rpgcombat.character.Health;
 public class CharacterTestBuilder {
     
     public static Character newCharacterWith(Health health) {
-        return new Character(health);
+        return new Character(health, 1);
+    }
+
+    public static Character newCharacterWith(Health health, Integer level) {
+        return new Character(health, level);
     }
 
     public static Health minHealth() {
@@ -17,7 +21,7 @@ public class CharacterTestBuilder {
         return customHealth(Health.MAX_HEALTH_POINTS);
     }
 
-    public static Health customHealth(int customHealLevel) {
+    public static Health customHealth(double customHealLevel) {
         return new Health(customHealLevel);
     }
 

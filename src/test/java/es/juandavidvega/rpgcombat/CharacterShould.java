@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CharacterShould {
 
 
-    public static final Integer HIGHEST_DAMAGE = 1001;
+    public static final Double HIGHEST_DAMAGE = 1001d;
 
     @Test
     public void
@@ -25,7 +25,7 @@ public class CharacterShould {
     @Test
     public void
     recover_health_after_been_healed() {
-        int healthPoints = 500;
+        double healthPoints = 500.0;
         Character character = CharacterTestBuilder.newCharacterWith(CharacterTestBuilder.customHealth(healthPoints));
         character.health(healthPoints);
         assertThat(character.health().points()).isEqualTo(Health.MAX_HEALTH_POINTS);
@@ -45,7 +45,7 @@ public class CharacterShould {
     public void
     keep_same_health_after_be_healed_when_heal_is_Max_heal() {
         Character character = CharacterTestBuilder.newCharacterWith(CharacterTestBuilder.maxHealth());
-        character.health(500);
+        character.health(500.0);
         assertThat(character.health().points()).isEqualTo(Health.MAX_HEALTH_POINTS);
     }
 
