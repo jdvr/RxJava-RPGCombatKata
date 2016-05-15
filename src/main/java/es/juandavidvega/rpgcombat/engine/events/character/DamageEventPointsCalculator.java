@@ -1,4 +1,6 @@
-package es.juandavidvega.rpgcombat.engine.events;
+package es.juandavidvega.rpgcombat.engine.events.character;
+
+import es.juandavidvega.rpgcombat.engine.events.game.AttackEvent;
 
 public class DamageEventPointsCalculator {
 

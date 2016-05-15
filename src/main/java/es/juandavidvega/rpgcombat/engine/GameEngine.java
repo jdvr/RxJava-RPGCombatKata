@@ -1,6 +1,11 @@
 package es.juandavidvega.rpgcombat.engine;
 
 import es.juandavidvega.rpgcombat.engine.events.*;
+import es.juandavidvega.rpgcombat.engine.events.character.DamageEvent;
+import es.juandavidvega.rpgcombat.engine.events.character.DamageEventPointsCalculator;
+import es.juandavidvega.rpgcombat.engine.events.character.IncreaseLifeEvent;
+import es.juandavidvega.rpgcombat.engine.events.game.AttackEvent;
+import es.juandavidvega.rpgcombat.engine.events.game.HealthEvent;
 
 public class GameEngine {
 

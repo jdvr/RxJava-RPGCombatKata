@@ -1,10 +1,10 @@
 package es.juandavidvega.rpgcombat.character;
 
 import es.juandavidvega.rpgcombat.engine.EventBus;
-import es.juandavidvega.rpgcombat.engine.events.DamageEvent;
+import es.juandavidvega.rpgcombat.engine.events.character.DamageEvent;
 import es.juandavidvega.rpgcombat.engine.events.EventTypes;
 import es.juandavidvega.rpgcombat.engine.events.GameEventChecker;
-import es.juandavidvega.rpgcombat.engine.events.IncreaseLifeEvent;
+import es.juandavidvega.rpgcombat.engine.events.character.IncreaseLifeEvent;
 import es.juandavidvega.rpgcombat.engine.subscription.Subscriptions;
 import rx.Subscription;
 
