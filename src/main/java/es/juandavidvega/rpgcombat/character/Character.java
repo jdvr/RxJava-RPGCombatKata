@@ -1,11 +1,10 @@
 package es.juandavidvega.rpgcombat.character;
 
-public class RPGCharacter {
+public class Character {
 
     private Integer health;
 
-    public RPGCharacter(Integer health) {
-
+    public Character(Integer health) {
         this.health = health;
     }
 
@@ -20,5 +19,9 @@ public class RPGCharacter {
 
     public Integer health() {
         return health;
+    }
+
+    public void health(Integer health) {
+
     }
 }

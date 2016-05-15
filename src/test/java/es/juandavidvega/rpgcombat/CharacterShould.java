@@ -1,6 +1,6 @@
 package es.juandavidvega.rpgcombat;
 
-import es.juandavidvega.rpgcombat.character.RPGCharacter;
+import es.juandavidvega.rpgcombat.character.Character;
 
 import org.junit.Test;
 
@@ -15,12 +15,22 @@ public class CharacterShould {
     @Test
     public void
     drop_health_to_zero_when_damage_is_higher_than_health() {
-        RPGCharacter target = new RPGCharacter(START_HEALTH);
+        Character target = new Character(START_HEALTH);
         assertThat(target.isAlive()).isTrue();
         target.receive(HIGHEST_DAMAGE);
         assertThat(target.isAlive()).isFalse();
         assertThat(target.health()).isEqualTo(MIN_HEALTH);
     }
+
+    @Test
+    public void
+    recover_health_after_been_healed() {
+        Character character = new Character(500);
+        assertThat(character.health()).isEqualTo(500);
+        character.health(START_HEALTH);
+        assertThat(character.health()).isEqualTo(START_HEALTH + 500);
+    }
+
 
 
 }
