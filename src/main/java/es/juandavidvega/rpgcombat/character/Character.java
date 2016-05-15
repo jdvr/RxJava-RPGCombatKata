@@ -42,12 +42,16 @@ public class Character {
         this.health.add(health);
     }
 
+    private EventBus getEventBus() {
+        return EventBus.get();
+    }
+
     private boolean AmIDead() {
         return !isAlive();
     }
 
     private void listenHealth() {
-        Subscription subscription = EventBus.get().toObserverable()
+        Subscription subscription = getEventBus().toObserverable()
                 .filter(event -> new GameEventChecker().isLifeIncrease(event))
                 .map(gameEvent -> (IncreaseLifeEvent) gameEvent)
                 .subscribe(this::manageHealth);
@@ -55,7 +59,7 @@ public class Character {
     }
 
     private void listenDamages() {
-        Subscription subscribe = EventBus.get().toObserverable()
+        Subscription subscribe = getEventBus().toObserverable()
                 .filter(event -> new GameEventChecker().isDamage(event))
                 .map(gameEvent -> (DamageEvent) gameEvent)
                 .subscribe(this::manageDamage);

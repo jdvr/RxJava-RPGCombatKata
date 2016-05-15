@@ -4,7 +4,7 @@ import es.juandavidvega.rpgcombat.engine.acctions.Attack;
 import es.juandavidvega.rpgcombat.character.Character;
 import es.juandavidvega.rpgcombat.engine.Event;
 
-public class AttackEvent implements Event {
+public class AttackEvent extends Event {
     public static final int DAMAGE_CHANGE_LEVEL_DIFFERENCE = 5;
     private Attack attack;
     private Character target;

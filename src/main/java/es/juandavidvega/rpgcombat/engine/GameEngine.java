@@ -30,11 +30,11 @@ public class GameEngine {
 
     private void sendDamage(AttackEvent event) {
         double damage = new DamageEventPointsCalculator(event).calculate();
-        bus.send(new DamageEvent(event.target(), damage));
+        new DamageEvent(event.target(), damage).publishOn(bus);
     }
 
     private void sendHealth(HealthEvent event) {
-        bus.send(new IncreaseLifeEvent(event.points()));
+        new IncreaseLifeEvent(event.points()).publishOn(bus);
     }
 
     private boolean isSameCharacter(HealthEvent healthEvent) {
@@ -45,7 +45,4 @@ public class GameEngine {
         return event.areDifferentCharacters();
     }
 
-    public void perform(Event event) {
-        bus.send(event);
-    }
 }

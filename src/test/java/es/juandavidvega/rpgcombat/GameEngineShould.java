@@ -32,7 +32,7 @@ public class GameEngineShould {
     public void
     send_attack_between_characters (){
         Attack attack = new Attack(attacker, 100);
-        engine.perform(new AttackEvent(attack, target));
+        new AttackEvent(attack, target).publishOn(bus);
         assertThat(target.health().points()).isEqualTo(900);
     }
 
@@ -41,7 +41,7 @@ public class GameEngineShould {
     avoid_to_character_damage_to_himself() {
         double pointsBeforeAttack = attacker.health().points();
         Attack attack = new Attack(attacker, 100);
-        engine.perform(new AttackEvent(attack, attacker));
+        new AttackEvent(attack, attacker).publishOn(bus);
         assertThat(attacker.health().points()).isEqualTo(pointsBeforeAttack);
     }
 
@@ -52,7 +52,7 @@ public class GameEngineShould {
         double pointsBeforeAttack = lowHealthCharacter.health().points();
         double addedPoints = 50;
         HealthAction health = new HealthAction(lowHealthCharacter, addedPoints);
-        engine.perform(new HealthEvent(health, lowHealthCharacter));
+        new HealthEvent(health, lowHealthCharacter).publishOn(bus);
         assertThat(lowHealthCharacter.health().points()).isEqualTo(pointsBeforeAttack + addedPoints);
     }
 
@@ -62,7 +62,7 @@ public class GameEngineShould {
         attacker = CharacterTestBuilder.newCharacterWith(CharacterTestBuilder.maxHealth(), 40);
         target = CharacterTestBuilder.newCharacterWith(CharacterTestBuilder.maxHealth(), 50);
         Attack attack = new Attack(attacker, 100);
-        engine.perform(new AttackEvent(attack, target));
+        new AttackEvent(attack, target).publishOn(bus);
         assertThat(target.health().points()).isEqualTo(950);
     }
 
@@ -72,7 +72,7 @@ public class GameEngineShould {
         attacker = CharacterTestBuilder.newCharacterWith(CharacterTestBuilder.maxHealth(), 50);
         target = CharacterTestBuilder.newCharacterWith(CharacterTestBuilder.maxHealth(), 40);
         Attack attack = new Attack(attacker, 100);
-        engine.perform(new AttackEvent(attack, target));
+        new AttackEvent(attack, target).publishOn(bus);
         assertThat(target.health().points()).isEqualTo(850);
     }
 

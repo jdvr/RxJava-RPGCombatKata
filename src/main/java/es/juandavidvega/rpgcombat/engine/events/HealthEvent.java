@@ -7,7 +7,7 @@ import es.juandavidvega.rpgcombat.engine.acctions.HealthAction;
 /**
  * Created by jdvr on 15/05/16.
  */
-public class HealthEvent implements Event {
+public class HealthEvent extends Event {
     private final HealthAction health;
     private final Character target;
 

@@ -6,7 +6,7 @@ import es.juandavidvega.rpgcombat.engine.Event;
 /**
  * Created by jdvr on 15/05/16.
  */
-public class DamageEvent implements Event {
+public class DamageEvent extends Event {
 
     private final Character target;
     private final Double points;
