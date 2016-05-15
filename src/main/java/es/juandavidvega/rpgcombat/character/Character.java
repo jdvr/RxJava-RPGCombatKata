@@ -22,6 +22,6 @@ public class Character {
     }
 
     public void health(Integer health) {
-
+        this.health += health;
     }
 }
