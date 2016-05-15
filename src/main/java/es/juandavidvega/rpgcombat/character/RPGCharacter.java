@@ -10,14 +10,15 @@ public class RPGCharacter {
     }
 
     public void receive(Integer damage) {
-
+        health -= damage;
+        if (health < 0) health = 0;
     }
 
     public boolean isAlive() {
-        return false;
+        return health > 0;
     }
 
     public Integer health() {
-        return null;
+        return health;
     }
 }
