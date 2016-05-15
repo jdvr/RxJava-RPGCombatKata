@@ -2,28 +2,25 @@ package es.juandavidvega.rpgcombat.character;
 
 public class Character {
 
-    private Integer health;
+    private Health health;
 
-    public Character(Integer health) {
+    public Character(Health health) {
         this.health = health;
     }
 
     public void receive(Integer damage) {
-        health -= damage;
-        if (health < 0) health = 0;
+        health.subtract(damage);
     }
 
     public boolean isAlive() {
-        return health > 0;
+        return health.isAlive();
     }
 
-    public Integer health() {
+    public Health health() {
         return health;
     }
 
     public void health(Integer health) {
-        if(isAlive() && health < 1000)
-            this.health += health;
-        if (this.health > 1000) this.health = 1000;
+        this.health.add(health);
     }
 }
