@@ -54,7 +54,7 @@ public abstract class Character {
     }
 
     private void listenHealth() {
-        Subscription subscription = getEventBus().toObserverable()
+        Subscription subscription = getEventBus().toObservable()
                 .filter(event -> new GameEventChecker().isLifeIncrease(event))
                 .map(gameEvent -> (IncreaseLifeEvent) gameEvent)
                 .filter(this::isMe)
@@ -63,7 +63,7 @@ public abstract class Character {
     }
 
     private void listenDamages() {
-        Subscription subscribe = getEventBus().toObserverable()
+        Subscription subscribe = getEventBus().toObservable()
                 .filter(event -> new GameEventChecker().isDamage(event))
                 .map(gameEvent -> (DamageEvent) gameEvent)
                 .filter(this::isMe)

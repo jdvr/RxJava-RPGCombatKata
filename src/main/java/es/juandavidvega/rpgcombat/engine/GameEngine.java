@@ -22,7 +22,7 @@ public class GameEngine {
     }
 
     private void subscribeHealth(EventBus bus) {
-        bus.toObserverable()
+        bus.toObservable()
                 .filter(eventChecker::isHealth)
                 .map(gameEvent -> (HealthEvent) gameEvent)
                 .filter(this::isSameCharacter)
@@ -30,7 +30,7 @@ public class GameEngine {
     }
 
     private void subscribeAttacks(EventBus bus) {
-        bus.toObserverable()
+        bus.toObservable()
                 .filter(event -> new GameEventChecker().isAttack(event))
                 .map(gameEvent -> (AttackEvent) gameEvent)
                 .filter(this::isNotSameCharacter)

@@ -13,7 +13,7 @@ public class EventBus {
         subject.onNext(event);
     }
 
-    public Observable<Object> toObserverable() {
+    public Observable<Object> toObservable() {
         return subject;
     }
 
