@@ -99,6 +99,19 @@ public class GameEngineShould {
         assertThat(otherEnemy.health().points()).isEqualTo(otherAttacker.health().points());
     }
 
+        @Test
+    public void
+    send_large_range_when_attacker_is_ranged_fighter() {
+        Character otherAttacker = CharacterTestBuilder.newRangedFighterWith(CharacterTestBuilder.maxHealth());
+        Character otherEnemy = anyCharacter();
+        when(rangeCalculator.rangeBetween(otherAttacker, otherEnemy)).thenReturn(15);
+        Attack attack = new Attack(otherAttacker, 100);
+        new AttackEvent(attack, otherEnemy).publishOn(bus);
+        assertThat(otherEnemy.health().points()).isEqualTo(900);
+    }
+
+
+
     @After
     public void clearBus(){
         EventBus.destroy();
