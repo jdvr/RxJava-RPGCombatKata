@@ -2,7 +2,7 @@ package es.juandavidvega.rpgcombat.engine.events.game;
 
 import es.juandavidvega.rpgcombat.engine.acctions.Attack;
 import es.juandavidvega.rpgcombat.character.Character;
-import es.juandavidvega.rpgcombat.engine.Event;
+import es.juandavidvega.rpgcombat.engine.events.Event;
 import es.juandavidvega.rpgcombat.engine.events.EventTypes;
 
 public class AttackEvent extends Event {

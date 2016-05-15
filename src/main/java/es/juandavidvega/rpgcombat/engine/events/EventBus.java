@@ -1,4 +1,4 @@
-package es.juandavidvega.rpgcombat.engine;
+package es.juandavidvega.rpgcombat.engine.events;
 
 import rx.Observable;
 import rx.subjects.PublishSubject;

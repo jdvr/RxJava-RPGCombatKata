@@ -1,9 +1,8 @@
 package es.juandavidvega.rpgcombat;
 
-import es.juandavidvega.rpgcombat.character.RangedFighter;
 import es.juandavidvega.rpgcombat.engine.acctions.Attack;
 import es.juandavidvega.rpgcombat.character.Character;
-import es.juandavidvega.rpgcombat.engine.EventBus;
+import es.juandavidvega.rpgcombat.engine.events.EventBus;
 import es.juandavidvega.rpgcombat.engine.GameEngine;
 import es.juandavidvega.rpgcombat.engine.acctions.HealthAction;
 import es.juandavidvega.rpgcombat.engine.events.game.AttackEvent;
@@ -12,7 +11,6 @@ import es.juandavidvega.rpgcombat.map.RangeCalculator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.w3c.dom.ranges.Range;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -99,7 +97,7 @@ public class GameEngineShould {
         assertThat(otherEnemy.health().points()).isEqualTo(otherAttacker.health().points());
     }
 
-        @Test
+    @Test
     public void
     send_large_range_when_attacker_is_ranged_fighter() {
         Character otherAttacker = CharacterTestBuilder.newRangedFighterWith(CharacterTestBuilder.maxHealth());
@@ -109,8 +107,6 @@ public class GameEngineShould {
         new AttackEvent(attack, otherEnemy).publishOn(bus);
         assertThat(otherEnemy.health().points()).isEqualTo(900);
     }
-
-
 
     @After
     public void clearBus(){

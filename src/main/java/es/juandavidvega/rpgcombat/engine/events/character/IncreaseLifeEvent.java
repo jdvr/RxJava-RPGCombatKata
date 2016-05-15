@@ -1,7 +1,7 @@
 package es.juandavidvega.rpgcombat.engine.events.character;
 
 import es.juandavidvega.rpgcombat.character.Character;
-import es.juandavidvega.rpgcombat.engine.Event;
+import es.juandavidvega.rpgcombat.engine.events.Event;
 import es.juandavidvega.rpgcombat.engine.events.EventTypes;
 
 public class IncreaseLifeEvent extends Event {

@@ -1,7 +1,5 @@
 package es.juandavidvega.rpgcombat.engine.events;
 
-import es.juandavidvega.rpgcombat.engine.Event;
-
 public class GameEventChecker {
 
     public boolean isAttack(Object object){

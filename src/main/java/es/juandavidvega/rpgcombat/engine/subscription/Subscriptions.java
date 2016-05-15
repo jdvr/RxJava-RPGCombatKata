@@ -1,6 +1,5 @@
 package es.juandavidvega.rpgcombat.engine.subscription;
 
-import es.juandavidvega.rpgcombat.engine.Event;
 import es.juandavidvega.rpgcombat.engine.events.EventTypes;
 import rx.Subscription;
 

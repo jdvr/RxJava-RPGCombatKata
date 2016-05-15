@@ -1,7 +1,7 @@
 package es.juandavidvega.rpgcombat.character;
 
-import es.juandavidvega.rpgcombat.engine.Event;
-import es.juandavidvega.rpgcombat.engine.EventBus;
+import es.juandavidvega.rpgcombat.engine.events.Event;
+import es.juandavidvega.rpgcombat.engine.events.EventBus;
 import es.juandavidvega.rpgcombat.engine.events.character.DamageEvent;
 import es.juandavidvega.rpgcombat.engine.events.EventTypes;
 import es.juandavidvega.rpgcombat.engine.events.GameEventChecker;

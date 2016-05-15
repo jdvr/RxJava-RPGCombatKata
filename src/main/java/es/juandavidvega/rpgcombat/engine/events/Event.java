@@ -1,7 +1,6 @@
-package es.juandavidvega.rpgcombat.engine;
+package es.juandavidvega.rpgcombat.engine.events;
 
 import es.juandavidvega.rpgcombat.character.Character;
-import es.juandavidvega.rpgcombat.engine.events.EventTypes;
 
 public abstract class Event {
     public abstract EventTypes type();
