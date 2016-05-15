@@ -15,7 +15,7 @@ public class CharacterShould {
     @Test
     public void
     drop_health_to_zero_when_damage_is_higher_than_health() {
-        Character target = newCharacterWith(maxHealth());
+        Character target = CharacterTestBuilder.newCharacterWith(CharacterTestBuilder.maxHealth());
         assertThat(target.isAlive()).isTrue();
         target.receive(HIGHEST_DAMAGE);
         assertThat(target.isAlive()).isFalse();
@@ -26,7 +26,7 @@ public class CharacterShould {
     public void
     recover_health_after_been_healed() {
         int healthPoints = 500;
-        Character character = newCharacterWith(customHealth(healthPoints));
+        Character character = CharacterTestBuilder.newCharacterWith(CharacterTestBuilder.customHealth(healthPoints));
         character.health(healthPoints);
         assertThat(character.health().points()).isEqualTo(Health.MAX_HEALTH_POINTS);
     }
@@ -34,7 +34,7 @@ public class CharacterShould {
     @Test
     public void
     keep_dead_when_was_dead_before_be_health() {
-        Character character = newCharacterWith(minHealth());
+        Character character = CharacterTestBuilder.newCharacterWith(CharacterTestBuilder.minHealth());
         assertThat(character.isAlive()).isFalse();
         character.health(Health.MAX_HEALTH_POINTS);
         assertThat(character.health().points()).isEqualTo(Health.MIN_HEALTH_POINTS);
@@ -44,25 +44,9 @@ public class CharacterShould {
     @Test
     public void
     keep_same_health_after_be_healed_when_heal_is_Max_heal() {
-        Character character = newCharacterWith(maxHealth());
+        Character character = CharacterTestBuilder.newCharacterWith(CharacterTestBuilder.maxHealth());
         character.health(500);
         assertThat(character.health().points()).isEqualTo(Health.MAX_HEALTH_POINTS);
-    }
-
-    private Character newCharacterWith(Health health) {
-        return new Character(health);
-    }
-
-    private Health customHealth(int customHealLevel) {
-        return new Health(customHealLevel);
-    }
-
-    private Health minHealth() {
-        return customHealth(Health.MIN_HEALTH_POINTS);
-    }
-
-    private Health maxHealth() {
-        return customHealth(Health.MAX_HEALTH_POINTS);
     }
 
 
