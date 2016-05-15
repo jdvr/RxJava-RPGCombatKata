@@ -33,4 +33,8 @@ public class AttackEvent implements Event {
     public boolean attackerIsAtLeastFiveLevelAboveTarget() {
         return target.level() - attack.attacker().level() >= 5;
     }
+
+    public boolean attackerIsAtLeastFiveLevelBelowTarget() {
+        return attack.attacker().level() - target.level() >= 5;
+    }
 }
