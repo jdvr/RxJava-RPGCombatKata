@@ -11,9 +11,12 @@ import es.juandavidvega.rpgcombat.map.RangeCalculator;
 public class GameEngine {
 
     private EventBus bus;
+    private RangeCalculator rangeCalculator;
     private final GameEventChecker eventChecker = new GameEventChecker();
+
     public GameEngine(EventBus bus, RangeCalculator rangeCalculator){
         this.bus = bus;
+        this.rangeCalculator = rangeCalculator;
         subscribeAttacks(bus);
         subscribeHealth(bus);
     }
@@ -31,7 +34,12 @@ public class GameEngine {
                 .filter(event -> new GameEventChecker().isAttack(event))
                 .map(gameEvent -> (AttackEvent) gameEvent)
                 .filter(this::isNotSameCharacter)
+                .filter(this::isInRange)
                 .subscribe(this::sendDamage);
+    }
+
+    private Boolean isInRange(AttackEvent attackEvent) {
+        return rangeCalculator.rangeBetween(attackEvent.attacker(), attackEvent.target()) <= attackEvent.attacker().range();
     }
 
     private void sendDamage(AttackEvent event) {

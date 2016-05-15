@@ -39,4 +39,8 @@ public class AttackEvent extends Event {
     public boolean attackerIsAtLeastFiveLevelBelowTarget() {
         return attack.attacker().level() - target.level() >= DAMAGE_CHANGE_LEVEL_DIFFERENCE;
     }
+
+    public Character attacker() {
+        return attack.attacker();
+    }
 }
