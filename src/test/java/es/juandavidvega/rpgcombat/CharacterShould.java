@@ -15,7 +15,7 @@ public class CharacterShould {
     @Test
     public void
     drop_health_to_zero_when_damage_is_higher_than_health() {
-        Character target = CharacterTestBuilder.newCharacterWith(CharacterTestBuilder.maxHealth());
+        Character target = CharacterTestBuilder.newMeleeFighterWith(CharacterTestBuilder.maxHealth());
         assertThat(target.isAlive()).isTrue();
         target.receive(HIGHEST_DAMAGE);
         assertThat(target.isAlive()).isFalse();
@@ -26,7 +26,7 @@ public class CharacterShould {
     public void
     recover_health_after_been_healed() {
         double healthPoints = 500.0;
-        Character character = CharacterTestBuilder.newCharacterWith(CharacterTestBuilder.customHealth(healthPoints));
+        Character character = CharacterTestBuilder.newMeleeFighterWith(CharacterTestBuilder.customHealth(healthPoints));
         character.health(healthPoints);
         assertThat(character.health().points()).isEqualTo(Health.MAX_HEALTH_POINTS);
     }
@@ -34,7 +34,7 @@ public class CharacterShould {
     @Test
     public void
     keep_dead_when_was_dead_before_be_health() {
-        Character character = CharacterTestBuilder.newCharacterWith(CharacterTestBuilder.minHealth());
+        Character character = CharacterTestBuilder.newMeleeFighterWith(CharacterTestBuilder.minHealth());
         assertThat(character.isAlive()).isFalse();
         character.health(Health.MAX_HEALTH_POINTS);
         assertThat(character.health().points()).isEqualTo(Health.MIN_HEALTH_POINTS);
@@ -44,7 +44,7 @@ public class CharacterShould {
     @Test
     public void
     keep_same_health_after_be_healed_when_heal_is_Max_heal() {
-        Character character = CharacterTestBuilder.newCharacterWith(CharacterTestBuilder.maxHealth());
+        Character character = CharacterTestBuilder.newMeleeFighterWith(CharacterTestBuilder.maxHealth());
         character.health(500.0);
         assertThat(character.health().points()).isEqualTo(Health.MAX_HEALTH_POINTS);
     }

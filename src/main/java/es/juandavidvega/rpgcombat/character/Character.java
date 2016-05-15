@@ -1,5 +1,6 @@
 package es.juandavidvega.rpgcombat.character;
 
+import es.juandavidvega.rpgcombat.engine.Event;
 import es.juandavidvega.rpgcombat.engine.EventBus;
 import es.juandavidvega.rpgcombat.engine.events.character.DamageEvent;
 import es.juandavidvega.rpgcombat.engine.events.EventTypes;
@@ -8,7 +9,7 @@ import es.juandavidvega.rpgcombat.engine.events.character.IncreaseLifeEvent;
 import es.juandavidvega.rpgcombat.engine.subscription.Subscriptions;
 import rx.Subscription;
 
-public class Character {
+public abstract class Character {
 
     private Health health;
     private Integer level;
@@ -42,6 +43,8 @@ public class Character {
         this.health.add(health);
     }
 
+    public abstract Integer range();
+
     private EventBus getEventBus() {
         return EventBus.get();
     }
@@ -54,6 +57,7 @@ public class Character {
         Subscription subscription = getEventBus().toObserverable()
                 .filter(event -> new GameEventChecker().isLifeIncrease(event))
                 .map(gameEvent -> (IncreaseLifeEvent) gameEvent)
+                .filter(this::isMe)
                 .subscribe(this::manageHealth);
         subscriptions.add(EventTypes.IncreaseLife, subscription);
     }
@@ -62,8 +66,13 @@ public class Character {
         Subscription subscribe = getEventBus().toObserverable()
                 .filter(event -> new GameEventChecker().isDamage(event))
                 .map(gameEvent -> (DamageEvent) gameEvent)
+                .filter(this::isMe)
                 .subscribe(this::manageDamage);
         subscriptions.add(EventTypes.Damage, subscribe);
+    }
+
+    private Boolean isMe(Event event) {
+        return event.target() == this;
     }
 
     private void manageDamage(DamageEvent damageEvent) {

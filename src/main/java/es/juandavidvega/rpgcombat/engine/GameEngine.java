@@ -6,12 +6,13 @@ import es.juandavidvega.rpgcombat.engine.events.character.DamageEventPointsCalcu
 import es.juandavidvega.rpgcombat.engine.events.character.IncreaseLifeEvent;
 import es.juandavidvega.rpgcombat.engine.events.game.AttackEvent;
 import es.juandavidvega.rpgcombat.engine.events.game.HealthEvent;
+import es.juandavidvega.rpgcombat.map.RangeCalculator;
 
 public class GameEngine {
 
     private EventBus bus;
     private final GameEventChecker eventChecker = new GameEventChecker();
-    public GameEngine(EventBus bus){
+    public GameEngine(EventBus bus, RangeCalculator rangeCalculator){
         this.bus = bus;
         subscribeAttacks(bus);
         subscribeHealth(bus);
@@ -39,7 +40,7 @@ public class GameEngine {
     }
 
     private void sendHealth(HealthEvent event) {
-        new IncreaseLifeEvent(event.points()).publishOn(bus);
+        new IncreaseLifeEvent(event.target(), event.points()).publishOn(bus);
     }
 
     private boolean isSameCharacter(HealthEvent healthEvent) {

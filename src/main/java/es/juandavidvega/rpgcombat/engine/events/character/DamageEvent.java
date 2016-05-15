@@ -4,9 +4,6 @@ import es.juandavidvega.rpgcombat.character.Character;
 import es.juandavidvega.rpgcombat.engine.Event;
 import es.juandavidvega.rpgcombat.engine.events.EventTypes;
 
-/**
- * Created by jdvr on 15/05/16.
- */
 public class DamageEvent extends Event {
 
     private final Character target;
@@ -17,7 +14,7 @@ public class DamageEvent extends Event {
         this.points = points;
     }
 
-    public Character targe(){
+    public Character target(){
         return target;
     }
 

@@ -6,14 +6,20 @@ import es.juandavidvega.rpgcombat.engine.events.EventTypes;
 
 public class IncreaseLifeEvent extends Event {
 
+    private Character target;
     private final Double points;
 
-    public IncreaseLifeEvent(Double points) {
+    public IncreaseLifeEvent(Character target, Double points) {
+        this.target = target;
         this.points = points;
     }
 
     public Double points () {
         return points;
+    }
+
+    public Character target(){
+        return  target;
     }
 
     @Override
