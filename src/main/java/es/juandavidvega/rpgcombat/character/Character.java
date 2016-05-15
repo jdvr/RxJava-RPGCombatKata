@@ -7,13 +7,18 @@ import es.juandavidvega.rpgcombat.engine.events.EventTypes;
 import es.juandavidvega.rpgcombat.engine.events.GameEventChecker;
 import es.juandavidvega.rpgcombat.engine.events.character.IncreaseLifeEvent;
 import es.juandavidvega.rpgcombat.engine.subscription.Subscriptions;
+import es.juandavidvega.rpgcombat.faction.Faction;
 import rx.Subscription;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Character {
 
     private Health health;
     private Integer level;
     private final Subscriptions subscriptions = new Subscriptions();
+    private List<Faction> factions = new ArrayList<>();
 
     public Character(Health health, Integer level) {
         this.health = health;
@@ -83,4 +88,7 @@ public abstract class Character {
         this.health(event.points());
     }
 
+    public List<Faction> factions(){
+        return factions;
+    }
 }
