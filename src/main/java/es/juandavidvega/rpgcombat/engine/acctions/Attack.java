@@ -1,4 +1,4 @@
-package es.juandavidvega.rpgcombat.acctions;
+package es.juandavidvega.rpgcombat.engine.acctions;
 
 import es.juandavidvega.rpgcombat.character.Character;
 

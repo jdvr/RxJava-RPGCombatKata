@@ -1,7 +1,6 @@
 package es.juandavidvega.rpgcombat.engine;
 
 import rx.Observable;
-import rx.subjects.AsyncSubject;
 import rx.subjects.PublishSubject;
 import rx.subjects.SerializedSubject;
 import rx.subjects.Subject;
@@ -10,7 +9,7 @@ public class EventBus {
     private static EventBus bus;
     private final Subject<Object, Object> subject = new SerializedSubject<>(PublishSubject.create());
 
-    public void send(GameEvent event) {
+    public void send(Event event) {
         subject.onNext(event);
     }
 
@@ -27,4 +26,7 @@ public class EventBus {
         return bus;
     }
 
+    public static void destroy() {
+        bus = null;
+    }
 }

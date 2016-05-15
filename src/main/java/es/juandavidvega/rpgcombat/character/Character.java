@@ -1,10 +1,10 @@
 package es.juandavidvega.rpgcombat.character;
 
 import es.juandavidvega.rpgcombat.engine.EventBus;
-import es.juandavidvega.rpgcombat.engine.GameEvent;
+import es.juandavidvega.rpgcombat.engine.Event;
 import es.juandavidvega.rpgcombat.engine.events.DamageEvent;
 import es.juandavidvega.rpgcombat.engine.events.GameEventChecker;
-import es.juandavidvega.rpgcombat.engine.events.GameEvents;
+import es.juandavidvega.rpgcombat.engine.events.EventTypes;
 
 public class Character {
 
@@ -31,8 +31,8 @@ public class Character {
         return damageEvent.targe() == this;
     }
 
-    private Boolean isDamageEvent(GameEvent gameEvent) {
-        return gameEvent.type() == GameEvents.Damage;
+    private Boolean isDamageEvent(Event event) {
+        return event.type() == EventTypes.Damage;
     }
 
     public void receive(Integer damage) {

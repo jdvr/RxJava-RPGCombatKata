@@ -1,10 +1,10 @@
 package es.juandavidvega.rpgcombat.engine.events;
 
-import es.juandavidvega.rpgcombat.acctions.Attack;
+import es.juandavidvega.rpgcombat.engine.acctions.Attack;
 import es.juandavidvega.rpgcombat.character.Character;
-import es.juandavidvega.rpgcombat.engine.GameEvent;
+import es.juandavidvega.rpgcombat.engine.Event;
 
-public class AttackEvent implements GameEvent{
+public class AttackEvent implements Event {
     private Attack attack;
     private Character target;
 
@@ -26,7 +26,7 @@ public class AttackEvent implements GameEvent{
     }
 
     @Override
-    public GameEvents type() {
-        return GameEvents.Attack;
+    public EventTypes type() {
+        return EventTypes.Attack;
     }
 }

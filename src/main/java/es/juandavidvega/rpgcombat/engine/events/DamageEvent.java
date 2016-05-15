@@ -1,12 +1,12 @@
 package es.juandavidvega.rpgcombat.engine.events;
 
 import es.juandavidvega.rpgcombat.character.Character;
-import es.juandavidvega.rpgcombat.engine.GameEvent;
+import es.juandavidvega.rpgcombat.engine.Event;
 
 /**
  * Created by jdvr on 15/05/16.
  */
-public class DamageEvent implements GameEvent{
+public class DamageEvent implements Event {
 
     private final Character target;
     private final Integer points;
@@ -25,7 +25,7 @@ public class DamageEvent implements GameEvent{
     }
 
     @Override
-    public GameEvents type() {
-        return GameEvents.Damage;
+    public EventTypes type() {
+        return EventTypes.Damage;
     }
 }

@@ -1,22 +1,22 @@
 package es.juandavidvega.rpgcombat.engine.events;
 
-import es.juandavidvega.rpgcombat.engine.GameEvent;
+import es.juandavidvega.rpgcombat.engine.Event;
 
 public class GameEventChecker {
 
     public boolean isAttack(Object object){
-        return isEventInstance(object) && is((GameEvent) object, GameEvents.Attack);
+        return isEventInstance(object) && is((Event) object, EventTypes.Attack);
     }
 
     public boolean isDamage(Object object) {
-        return isEventInstance(object) && is((GameEvent) object, GameEvents.Damage);
+        return isEventInstance(object) && is((Event) object, EventTypes.Damage);
     }
 
     private boolean isEventInstance(Object object) {
-        return object instanceof GameEvent;
+        return object instanceof Event;
     }
 
-    private boolean is(GameEvent gameEvent, GameEvents type) {
-        return gameEvent.type() == type;
+    private boolean is(Event event, EventTypes type) {
+        return event.type() == type;
     }
 }

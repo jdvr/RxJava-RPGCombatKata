@@ -29,7 +29,7 @@ public class GameEngine {
         return event.areDifferentCharacters();
     }
 
-    public void perform(GameEvent event) {
+    public void perform(Event event) {
         bus.send(event);
     }
 }
