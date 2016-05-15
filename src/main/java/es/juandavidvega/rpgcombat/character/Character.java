@@ -22,7 +22,8 @@ public class Character {
     }
 
     public void health(Integer health) {
-        if(isAlive())
+        if(isAlive() && health < 1000)
             this.health += health;
+        if (this.health > 1000) this.health = 1000;
     }
 }
