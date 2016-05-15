@@ -1,5 +1,5 @@
 package es.juandavidvega.rpgcombat.engine.events;
 
 public enum EventTypes {
-    Damage, Attack
+    Damage, Health, IncreaseLife, Attack
 }

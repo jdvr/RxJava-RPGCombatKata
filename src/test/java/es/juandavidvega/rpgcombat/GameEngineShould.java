@@ -4,7 +4,9 @@ import es.juandavidvega.rpgcombat.engine.acctions.Attack;
 import es.juandavidvega.rpgcombat.character.Character;
 import es.juandavidvega.rpgcombat.engine.EventBus;
 import es.juandavidvega.rpgcombat.engine.GameEngine;
+import es.juandavidvega.rpgcombat.engine.acctions.HealthAction;
 import es.juandavidvega.rpgcombat.engine.events.AttackEvent;
+import es.juandavidvega.rpgcombat.engine.events.HealthEvent;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,6 +43,17 @@ public class GameEngineShould {
         Attack attack = new Attack(attacker, 100);
         engine.perform(new AttackEvent(attack, attacker));
         assertThat(attacker.health().points()).isEqualTo(pointsBeforeAttack);
+    }
+
+    @Test
+    public void
+    send_health_to_character_when_he_heath_himself() {
+        Character lowHealthCharacter = CharacterTestBuilder.newCharacterWith(CharacterTestBuilder.customHealth(700));
+        Integer pointsBeforeAttack = lowHealthCharacter.health().points();
+        Integer addedPoints = 50;
+        HealthAction health = new HealthAction(lowHealthCharacter, addedPoints);
+        engine.perform(new HealthEvent(health, lowHealthCharacter));
+        assertThat(lowHealthCharacter.health().points()).isEqualTo(pointsBeforeAttack + addedPoints);
     }
 
     @After

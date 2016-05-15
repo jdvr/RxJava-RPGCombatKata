@@ -12,6 +12,14 @@ public class GameEventChecker {
         return isEventInstance(object) && is((Event) object, EventTypes.Damage);
     }
 
+    public boolean isHealth(Object object) {
+        return isEventInstance(object) && is((Event) object, EventTypes.Health);
+    }
+
+    public boolean isLifeIncrease(Object object) {
+        return isEventInstance(object) && is((Event) object, EventTypes.IncreaseLife);
+    }
+
     private boolean isEventInstance(Object object) {
         return object instanceof Event;
     }
