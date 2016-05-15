@@ -31,6 +31,15 @@ public class CharacterShould {
         assertThat(character.health()).isEqualTo(START_HEALTH + 500);
     }
 
+    @Test
+    public void
+    keep_dead_when_was_dead_before_be_health() {
+        Character character = new Character(MIN_HEALTH);
+        assertThat(character.isAlive()).isFalse();
+        character.health(START_HEALTH);
+        assertThat(character.health()).isEqualTo(MIN_HEALTH);
+        assertThat(character.isAlive()).isFalse();
+    }
 
 
 }
