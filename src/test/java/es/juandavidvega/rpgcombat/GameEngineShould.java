@@ -66,6 +66,16 @@ public class GameEngineShould {
         assertThat(target.health().points()).isEqualTo(950);
     }
 
+    @Test
+    public void
+    send_attack_with_boosted_damage_when_attacker_is_at_least_five_level_below_target() {
+        attacker = CharacterTestBuilder.newCharacterWith(CharacterTestBuilder.maxHealth(), 50);
+        target = CharacterTestBuilder.newCharacterWith(CharacterTestBuilder.maxHealth(), 40);
+        Attack attack = new Attack(attacker, 100);
+        engine.perform(new AttackEvent(attack, target));
+        assertThat(target.health().points()).isEqualTo(850);
+    }
+
     @After
     public void clearBus(){
         EventBus.destroy();
