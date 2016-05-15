@@ -5,6 +5,7 @@ import es.juandavidvega.rpgcombat.character.Character;
 import es.juandavidvega.rpgcombat.engine.Event;
 
 public class AttackEvent implements Event {
+    public static final int DAMAGE_CHANGE_LEVEL_DIFFERENCE = 5;
     private Attack attack;
     private Character target;
 
@@ -31,10 +32,10 @@ public class AttackEvent implements Event {
     }
 
     public boolean attackerIsAtLeastFiveLevelAboveTarget() {
-        return target.level() - attack.attacker().level() >= 5;
+        return target.level() - attack.attacker().level() >= DAMAGE_CHANGE_LEVEL_DIFFERENCE;
     }
 
     public boolean attackerIsAtLeastFiveLevelBelowTarget() {
-        return attack.attacker().level() - target.level() >= 5;
+        return attack.attacker().level() - target.level() >= DAMAGE_CHANGE_LEVEL_DIFFERENCE;
     }
 }
