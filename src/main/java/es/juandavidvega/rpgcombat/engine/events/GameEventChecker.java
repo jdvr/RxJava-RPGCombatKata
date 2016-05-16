@@ -22,6 +22,10 @@ public class GameEventChecker {
         return isEventInstance(object) && is((Event) object, EventTypes.JoinFaction);
     }
 
+    public boolean isLeaveFaction(Object object) {
+        return isEventInstance(object) && is((Event) object, EventTypes.LeaveFaction);
+    }
+
     private boolean isEventInstance(Object object) {
         return object instanceof Event;
     }

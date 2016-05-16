@@ -6,7 +6,7 @@ import es.juandavidvega.rpgcombat.engine.events.character.DamageEvent;
 import es.juandavidvega.rpgcombat.engine.events.EventTypes;
 import es.juandavidvega.rpgcombat.engine.events.GameEventChecker;
 import es.juandavidvega.rpgcombat.engine.events.character.IncreaseLifeEvent;
-import es.juandavidvega.rpgcombat.engine.events.faction.JoinFactionEvent;
+import es.juandavidvega.rpgcombat.engine.events.faction.FactionEvent;
 import es.juandavidvega.rpgcombat.engine.subscription.Subscriptions;
 import es.juandavidvega.rpgcombat.faction.Faction;
 import rx.Subscription;
@@ -26,6 +26,7 @@ public abstract class Character {
         listenDamages();
         listenHealth();
         listenJoinFactions();
+        listenLeaveFactions();
     }
 
     public void receive(Double damage) {
@@ -53,6 +54,18 @@ public abstract class Character {
 
     public Set<Faction> factions(){
         return factions;
+    }
+
+    public void addFaction(Faction faction) {
+        this.factions.add(faction);
+    }
+
+    private void joinFaction(FactionEvent event) {
+        addFaction(event.faction());
+    }
+
+    private void leaveFaction(FactionEvent event) {
+        factions.remove(event.faction());
     }
 
     private EventBus getEventBus() {
@@ -84,10 +97,19 @@ public abstract class Character {
     private void listenJoinFactions() {
         Subscription subscribe = getEventBus().toObservable()
                 .filter(event -> new GameEventChecker().isFactionJoin(event))
-                .map(gameEvent -> (JoinFactionEvent) gameEvent)
+                .map(gameEvent -> (FactionEvent) gameEvent)
                 .filter(this::isMe)
                 .subscribe(this::joinFaction);
         subscriptions.add(EventTypes.JoinFaction, subscribe);
+    }
+
+    private void listenLeaveFactions() {
+        Subscription subscribe = getEventBus().toObservable()
+                .filter(event -> new GameEventChecker().isLeaveFaction(event))
+                .map(gameEvent -> (FactionEvent) gameEvent)
+                .filter(this::isMe)
+                .subscribe(this::leaveFaction);
+        subscriptions.add(EventTypes.LeaveFaction, subscribe);
     }
 
     private Boolean isMe(Event event) {
@@ -100,9 +122,5 @@ public abstract class Character {
 
     private void manageHealth(IncreaseLifeEvent event) {
         this.health(event.points());
-    }
-
-    private void joinFaction(JoinFactionEvent event) {
-        this.factions.add(event.faction());
     }
 }

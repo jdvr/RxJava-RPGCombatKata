@@ -5,17 +5,16 @@ import es.juandavidvega.rpgcombat.engine.events.Event;
 import es.juandavidvega.rpgcombat.engine.events.EventTypes;
 import es.juandavidvega.rpgcombat.faction.Faction;
 
-/**
- * Created by jdvr on 15/05/16.
- */
-public class JoinFactionEvent extends Event{
+public class FactionEvent extends Event{
 
     private final Faction faction;
     private final Character target;
+    private EventTypes type;
 
-    public JoinFactionEvent(Faction faction, Character target) {
+    public FactionEvent(Faction faction, Character target, EventTypes type) {
         this.faction = faction;
         this.target = target;
+        this.type = type;
     }
 
     public Faction faction() {
@@ -24,7 +23,7 @@ public class JoinFactionEvent extends Event{
 
     @Override
     public EventTypes type() {
-        return EventTypes.JoinFaction;
+        return type;
     }
 
     @Override
