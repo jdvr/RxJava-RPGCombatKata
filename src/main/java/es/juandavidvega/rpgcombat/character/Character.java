@@ -6,25 +6,26 @@ import es.juandavidvega.rpgcombat.engine.events.character.DamageEvent;
 import es.juandavidvega.rpgcombat.engine.events.EventTypes;
 import es.juandavidvega.rpgcombat.engine.events.GameEventChecker;
 import es.juandavidvega.rpgcombat.engine.events.character.IncreaseLifeEvent;
+import es.juandavidvega.rpgcombat.engine.events.faction.JoinFactionEvent;
 import es.juandavidvega.rpgcombat.engine.subscription.Subscriptions;
 import es.juandavidvega.rpgcombat.faction.Faction;
 import rx.Subscription;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public abstract class Character {
 
     private Health health;
     private Integer level;
     private final Subscriptions subscriptions = new Subscriptions();
-    private List<Faction> factions = new ArrayList<>();
+    private Set<Faction> factions = new HashSet<>();
 
     public Character(Health health, Integer level) {
         this.health = health;
         this.level = level;
         listenDamages();
         listenHealth();
+        listenJoinFactions();
     }
 
     public void receive(Double damage) {
@@ -49,6 +50,10 @@ public abstract class Character {
     }
 
     public abstract Integer range();
+
+    public Set<Faction> factions(){
+        return factions;
+    }
 
     private EventBus getEventBus() {
         return EventBus.get();
@@ -76,6 +81,15 @@ public abstract class Character {
         subscriptions.add(EventTypes.Damage, subscribe);
     }
 
+    private void listenJoinFactions() {
+        Subscription subscribe = getEventBus().toObservable()
+                .filter(event -> new GameEventChecker().isFactionJoin(event))
+                .map(gameEvent -> (JoinFactionEvent) gameEvent)
+                .filter(this::isMe)
+                .subscribe(this::joinFaction);
+        subscriptions.add(EventTypes.JoinFaction, subscribe);
+    }
+
     private Boolean isMe(Event event) {
         return event.target() == this;
     }
@@ -88,7 +102,7 @@ public abstract class Character {
         this.health(event.points());
     }
 
-    public List<Faction> factions(){
-        return factions;
+    private void joinFaction(JoinFactionEvent event) {
+        this.factions.add(event.faction());
     }
 }

@@ -27,7 +27,7 @@ public class FactionsManagerShould {
         new JoinFactionEvent(faction, character).publishOn(bus);
         assertThat(faction.size()).isEqualTo(1);
         assertThat(character.factions().size()).isEqualTo(1);
-        assertThat(character.factions().get(0).name()).isEqualTo("exampleFaction");
+        assertThat(character.factions()).contains(faction);
         assertThat(faction.characters()).contains(character);
     }
 

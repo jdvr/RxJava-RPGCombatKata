@@ -18,6 +18,10 @@ public class GameEventChecker {
         return isEventInstance(object) && is((Event) object, EventTypes.IncreaseLife);
     }
 
+    public boolean isFactionJoin(Object object) {
+        return isEventInstance(object) && is((Event) object, EventTypes.JoinFaction);
+    }
+
     private boolean isEventInstance(Object object) {
         return object instanceof Event;
     }
