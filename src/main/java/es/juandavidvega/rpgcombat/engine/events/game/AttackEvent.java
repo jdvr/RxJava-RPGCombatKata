@@ -43,4 +43,13 @@ public class AttackEvent extends Event {
     public Character attacker() {
         return attack.attacker();
     }
+
+    public Boolean areAllies() {
+        return attacker().isAllieOf(target);
+    }
+
+    public Boolean areNotAllies() {
+        return !attacker().isAllieOf(target);
+    }
+
 }

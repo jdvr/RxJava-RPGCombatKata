@@ -35,7 +35,12 @@ public class GameEngine {
                 .map(gameEvent -> (AttackEvent) gameEvent)
                 .filter(this::isNotSameCharacter)
                 .filter(this::isInRange)
+                .filter(this::areNotAllies)
                 .subscribe(this::sendDamage);
+    }
+
+    private Boolean areNotAllies(AttackEvent attackEvent) {
+        return !attackEvent.areAllies();
     }
 
     private Boolean isInRange(AttackEvent attackEvent) {

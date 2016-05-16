@@ -123,4 +123,12 @@ public abstract class Character {
     private void manageHealth(IncreaseLifeEvent event) {
         this.health(event.points());
     }
+
+    public Boolean isAllieOf(Character target) {
+        long count = target.factions()
+                .stream()
+                .filter(factions::contains)
+                .count();
+        return count != 0;
+    }
 }

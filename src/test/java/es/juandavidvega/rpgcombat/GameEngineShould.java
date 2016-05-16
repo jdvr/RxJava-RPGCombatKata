@@ -7,6 +7,7 @@ import es.juandavidvega.rpgcombat.engine.GameEngine;
 import es.juandavidvega.rpgcombat.engine.acctions.HealthAction;
 import es.juandavidvega.rpgcombat.engine.events.game.AttackEvent;
 import es.juandavidvega.rpgcombat.engine.events.game.HealthEvent;
+import es.juandavidvega.rpgcombat.faction.Faction;
 import es.juandavidvega.rpgcombat.map.RangeCalculator;
 import org.junit.After;
 import org.junit.Before;
@@ -106,6 +107,17 @@ public class GameEngineShould {
         Attack attack = new Attack(otherAttacker, 100);
         new AttackEvent(attack, otherEnemy).publishOn(bus);
         assertThat(otherEnemy.health().points()).isEqualTo(900);
+    }
+
+    @Test
+    public void
+    avoid_character_to_send_damage_to_his_allies() {
+        Faction faction = new Faction("faction");
+        attacker.addFaction(faction);
+        target.addFaction(faction);
+        Attack attack = new Attack(attacker, 100);
+        new AttackEvent(attack, target).publishOn(bus);
+        assertThat(attacker.health().points()).isEqualTo(target.health().points());
     }
 
     @After
