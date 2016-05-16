@@ -1,5 +1,6 @@
 package es.juandavidvega.rpgcombat;
 
+import es.juandavidvega.rpgcombat.character.Health;
 import es.juandavidvega.rpgcombat.engine.acctions.Attack;
 import es.juandavidvega.rpgcombat.character.Character;
 import es.juandavidvega.rpgcombat.engine.events.EventBus;
@@ -134,6 +135,15 @@ public class GameEngineShould {
         HealthAction health = new HealthAction(healer, addedPoints);
         new HealthEvent(health, allie).publishOn(bus);
         assertThat(allie.health().points()).isEqualTo(pointsBeforeHealth + addedPoints);
+    }
+
+    @Test
+    public void
+    send_damage_to_items_from_characters() {
+        House house = new House(new Health(2000d));
+        Attack attack = new Attack(attacker, 1000);
+        new AttackPropsEvent(attack, house).publishOn(bus);
+        assertThat(house.health().points())
     }
 
 
