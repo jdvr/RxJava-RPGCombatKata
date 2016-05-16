@@ -33,4 +33,9 @@ public class HealthEvent extends Event {
     public Double points() {
         return health.points();
     }
+
+
+    public Boolean areAllies() {
+        return health.healer().isAllieOf(target);
+    }
 }

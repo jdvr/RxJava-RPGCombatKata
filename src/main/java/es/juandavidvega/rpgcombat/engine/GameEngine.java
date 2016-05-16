@@ -25,7 +25,7 @@ public class GameEngine {
         bus.toObservable()
                 .filter(eventChecker::isHealth)
                 .map(gameEvent -> (HealthEvent) gameEvent)
-                .filter(this::isSameCharacter)
+                .filter(this::isSameCharacterOrAllies)
                 .subscribe(this::sendHealth);
     }
 
@@ -56,8 +56,8 @@ public class GameEngine {
         new IncreaseLifeEvent(event.target(), event.points()).publishOn(bus);
     }
 
-    private boolean isSameCharacter(HealthEvent healthEvent) {
-        return healthEvent.isSameCharacter();
+    private boolean isSameCharacterOrAllies(HealthEvent healthEvent) {
+        return healthEvent.isSameCharacter() || healthEvent.areAllies();
     }
 
     private Boolean isNotSameCharacter(AttackEvent event) {

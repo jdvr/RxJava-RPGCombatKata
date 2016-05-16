@@ -120,6 +120,23 @@ public class GameEngineShould {
         assertThat(attacker.health().points()).isEqualTo(target.health().points());
     }
 
+
+    @Test
+    public void
+    send_health_to_character_when_he_heath_an_allie() {
+        Faction faction = new Faction("faction");
+        Character healer = CharacterTestBuilder.newMeleeFighterWith(CharacterTestBuilder.maxHealth());
+        Character allie = CharacterTestBuilder.newMeleeFighterWith(CharacterTestBuilder.customHealth(500d));
+        healer.addFaction(faction);
+        allie.addFaction(faction);
+        double pointsBeforeHealth = allie.health().points();
+        double addedPoints = 50;
+        HealthAction health = new HealthAction(healer, addedPoints);
+        new HealthEvent(health, allie).publishOn(bus);
+        assertThat(allie.health().points()).isEqualTo(pointsBeforeHealth + addedPoints);
+    }
+
+
     @After
     public void clearBus(){
         EventBus.destroy();
