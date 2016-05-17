@@ -26,6 +26,14 @@ public class GameEventChecker {
         return isEventInstance(object) && is((Event) object, EventTypes.LeaveFaction);
     }
 
+    public Boolean isPropAttack(Object object) {
+        return isEventInstance(object) && is((Event) object, EventTypes.AttackProps);
+    }
+
+    public Boolean isPropDamage(Object object) {
+        return isEventInstance(object) && is((Event) object, EventTypes.DamageProps);
+    }
+
     private boolean isEventInstance(Object object) {
         return object instanceof Event;
     }

@@ -1,24 +1,25 @@
 package es.juandavidvega.rpgcombat.engine.events.props;
 
 import es.juandavidvega.rpgcombat.character.Character;
-import es.juandavidvega.rpgcombat.engine.acctions.Attack;
 import es.juandavidvega.rpgcombat.engine.events.Event;
 import es.juandavidvega.rpgcombat.engine.events.EventTypes;
 import es.juandavidvega.rpgcombat.props.House;
 
-public class AttackPropsEvent extends Event{
+public class DamagePropsEvent extends Event{
 
-    private final Attack attack;
     private final House house;
+    private final Integer damage;
 
-    public AttackPropsEvent(Attack attack, House house) {
-        this.attack = attack;
+    public DamagePropsEvent(House house, Integer damage) {
         this.house = house;
+        this.damage = damage;
     }
+
+
 
     @Override
     public EventTypes type() {
-        return EventTypes.AttackProps;
+        return EventTypes.DamageProps;
     }
 
     @Override
@@ -26,15 +27,11 @@ public class AttackPropsEvent extends Event{
         return null;
     }
 
-    public Character attacker() {
-        return attack.attacker();
-    }
-
     public House house() {
         return house;
     }
 
-    public Integer damage() {
-        return attack.points();
+    public Integer damage () {
+        return damage;
     }
 }

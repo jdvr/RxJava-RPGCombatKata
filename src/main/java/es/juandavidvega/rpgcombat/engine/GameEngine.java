@@ -6,6 +6,8 @@ import es.juandavidvega.rpgcombat.engine.events.character.DamageEventPointsCalcu
 import es.juandavidvega.rpgcombat.engine.events.character.IncreaseLifeEvent;
 import es.juandavidvega.rpgcombat.engine.events.game.AttackEvent;
 import es.juandavidvega.rpgcombat.engine.events.game.HealthEvent;
+import es.juandavidvega.rpgcombat.engine.events.props.AttackPropsEvent;
+import es.juandavidvega.rpgcombat.engine.events.props.DamagePropsEvent;
 import es.juandavidvega.rpgcombat.map.RangeCalculator;
 
 public class GameEngine {
@@ -19,6 +21,7 @@ public class GameEngine {
         this.rangeCalculator = rangeCalculator;
         subscribeAttacks(bus);
         subscribeHealth(bus);
+        subscribePropsAttacks(bus);
     }
 
     private void subscribeHealth(EventBus bus) {
@@ -39,12 +42,29 @@ public class GameEngine {
                 .subscribe(this::sendDamage);
     }
 
+    private void subscribePropsAttacks(EventBus bus) {
+        bus.toObservable()
+                .filter(event -> new GameEventChecker().isPropAttack(event))
+                .map(gameEvent -> (AttackPropsEvent) gameEvent)
+                .filter(this::isInRange)
+                .subscribe(this::sendPropDamage);
+    }
+
     private Boolean areNotAllies(AttackEvent attackEvent) {
         return !attackEvent.areAllies();
     }
 
     private Boolean isInRange(AttackEvent attackEvent) {
         return rangeCalculator.rangeBetween(attackEvent.attacker(), attackEvent.target()) <= attackEvent.attacker().range();
+    }
+
+    private Boolean isInRange(AttackPropsEvent attackEvent) {
+        return rangeCalculator.rangeBetween(attackEvent.attacker(), attackEvent.house()) <= attackEvent.attacker().range();
+    }
+
+
+    private void sendPropDamage (AttackPropsEvent attackPropsEvent) {
+        new DamagePropsEvent(attackPropsEvent.house(), attackPropsEvent.damage()).publishOn(bus);
     }
 
     private void sendDamage(AttackEvent event) {
