@@ -8,8 +8,10 @@ import es.juandavidvega.rpgcombat.engine.GameEngine;
 import es.juandavidvega.rpgcombat.engine.acctions.HealthAction;
 import es.juandavidvega.rpgcombat.engine.events.game.AttackEvent;
 import es.juandavidvega.rpgcombat.engine.events.game.HealthEvent;
+import es.juandavidvega.rpgcombat.engine.events.props.AttackPropsEvent;
 import es.juandavidvega.rpgcombat.faction.Faction;
 import es.juandavidvega.rpgcombat.map.RangeCalculator;
+import es.juandavidvega.rpgcombat.props.House;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -143,7 +145,7 @@ public class GameEngineShould {
         House house = new House(new Health(2000d));
         Attack attack = new Attack(attacker, 1000);
         new AttackPropsEvent(attack, house).publishOn(bus);
-        assertThat(house.health().points())
+        assertThat(house.health().points()).isEqualTo(1000d);
     }
 
 

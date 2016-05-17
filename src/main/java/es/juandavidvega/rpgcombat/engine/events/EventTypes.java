@@ -1,5 +1,5 @@
 package es.juandavidvega.rpgcombat.engine.events;
 
 public enum EventTypes {
-    Damage, Health, IncreaseLife, JoinFaction, LeaveFaction, Attack
+    Damage, Health, IncreaseLife, JoinFaction, LeaveFaction, AttackProps, Attack
 }
