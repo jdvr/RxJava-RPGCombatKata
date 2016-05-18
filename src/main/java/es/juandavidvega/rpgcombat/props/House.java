@@ -4,9 +4,10 @@ package es.juandavidvega.rpgcombat.props;
 import es.juandavidvega.rpgcombat.character.Health;
 import es.juandavidvega.rpgcombat.engine.events.EventBus;
 import es.juandavidvega.rpgcombat.engine.events.GameEventChecker;
+import es.juandavidvega.rpgcombat.engine.events.Targetable;
 import es.juandavidvega.rpgcombat.engine.events.props.DamagePropsEvent;
 
-public class House {
+public class House implements Targetable{
 
     private final Health health;
 

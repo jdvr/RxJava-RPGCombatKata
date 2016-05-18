@@ -64,16 +64,16 @@ public class GameEngine {
 
 
     private void sendPropDamage (AttackPropsEvent attackPropsEvent) {
-        new DamagePropsEvent(attackPropsEvent.house(), attackPropsEvent.damage()).publishOn(bus);
+        new DamagePropsEvent(attackPropsEvent.house(), attackPropsEvent.damage()).publishOn();
     }
 
     private void sendDamage(AttackEvent event) {
         double damage = new DamageEventPointsCalculator(event).calculate();
-        new DamageEvent(event.target(), damage).publishOn(bus);
+        new DamageEvent(event.target(), damage).publishOn();
     }
 
     private void sendHealth(HealthEvent event) {
-        new IncreaseLifeEvent(event.target(), event.points()).publishOn(bus);
+        new IncreaseLifeEvent(event.target(), event.points()).publishOn();
     }
 
     private boolean isSameCharacterOrAllies(HealthEvent healthEvent) {

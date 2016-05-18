@@ -1,10 +1,7 @@
 package es.juandavidvega.rpgcombat.character;
 
-import es.juandavidvega.rpgcombat.engine.events.Event;
-import es.juandavidvega.rpgcombat.engine.events.EventBus;
+import es.juandavidvega.rpgcombat.engine.events.*;
 import es.juandavidvega.rpgcombat.engine.events.character.DamageEvent;
-import es.juandavidvega.rpgcombat.engine.events.EventTypes;
-import es.juandavidvega.rpgcombat.engine.events.GameEventChecker;
 import es.juandavidvega.rpgcombat.engine.events.character.IncreaseLifeEvent;
 import es.juandavidvega.rpgcombat.engine.events.faction.FactionEvent;
 import es.juandavidvega.rpgcombat.engine.subscription.Subscriptions;
@@ -13,7 +10,7 @@ import rx.Subscription;
 
 import java.util.*;
 
-public abstract class Character {
+public abstract class Character implements Targetable {
 
     private Health health;
     private Integer level;
