@@ -10,6 +10,8 @@ import rx.Subscription;
 
 import java.util.*;
 
+import static es.juandavidvega.rpgcombat.engine.events.EventType.*;
+
 public abstract class Character implements Targetable {
 
     private Health health;
@@ -74,39 +76,31 @@ public abstract class Character implements Targetable {
     }
 
     private void listenHealth() {
-        Subscription subscription = getEventBus().toObservable()
-                .filter(event -> new GameEventChecker().isLifeIncrease(event))
-                .map(gameEvent -> (IncreaseLifeEvent) gameEvent)
+        Subscription subscription = getEventBus().streamOf(IncreaseLife, IncreaseLifeEvent.class)
                 .filter(this::isMe)
                 .subscribe(this::manageHealth);
-        subscriptions.add(EventType.IncreaseLife, subscription);
+        subscriptions.add(IncreaseLife, subscription);
     }
 
     private void listenDamages() {
-        Subscription subscribe = getEventBus().toObservable()
-                .filter(event -> new GameEventChecker().isDamage(event))
-                .map(gameEvent -> (DamageEvent) gameEvent)
+        Subscription subscribe = getEventBus().streamOf(Damage, DamageEvent.class)
                 .filter(this::isMe)
                 .subscribe(this::manageDamage);
-        subscriptions.add(EventType.Damage, subscribe);
+        subscriptions.add(Damage, subscribe);
     }
 
     private void listenJoinFactions() {
-        Subscription subscribe = getEventBus().toObservable()
-                .filter(event -> new GameEventChecker().isFactionJoin(event))
-                .map(gameEvent -> (FactionEvent) gameEvent)
+        Subscription subscribe = getEventBus().streamOf(JoinFaction, FactionEvent.class)
                 .filter(this::isMe)
                 .subscribe(this::joinFaction);
-        subscriptions.add(EventType.JoinFaction, subscribe);
+        subscriptions.add(JoinFaction, subscribe);
     }
 
     private void listenLeaveFactions() {
-        Subscription subscribe = getEventBus().toObservable()
-                .filter(event -> new GameEventChecker().isLeaveFaction(event))
-                .map(gameEvent -> (FactionEvent) gameEvent)
+        Subscription subscribe = getEventBus().streamOf(LeaveFaction, FactionEvent.class)
                 .filter(this::isMe)
                 .subscribe(this::leaveFaction);
-        subscriptions.add(EventType.LeaveFaction, subscribe);
+        subscriptions.add(LeaveFaction, subscribe);
     }
 
     private Boolean isMe(Event event) {

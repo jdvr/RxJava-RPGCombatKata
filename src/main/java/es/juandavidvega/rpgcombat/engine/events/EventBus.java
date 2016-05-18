@@ -13,12 +13,16 @@ public class EventBus {
         subject.onNext(event);
     }
 
-    public Observable<Event> toObservable() {
-        return subject;
+    public <T> Observable<T>  streamOf(EventType type, Class<T> targetEvent) {
+        return toObservable().filter(event -> event.is(type)).map(targetEvent::cast);
     }
 
     public static EventBus get(){
         return bus == null ? createBus() : bus;
+    }
+
+    private Observable<Event> toObservable() {
+        return subject;
     }
 
     private static EventBus createBus() {

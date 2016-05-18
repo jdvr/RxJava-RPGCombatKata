@@ -11,6 +11,8 @@ import rx.Subscription;
 import java.util.ArrayList;
 import java.util.List;
 
+import static es.juandavidvega.rpgcombat.engine.events.EventType.*;
+
 public class Faction {
 
     private final List<Character> characters = new ArrayList<>();
@@ -66,20 +68,16 @@ public class Faction {
 
 
     private void listenJoinFactions() {
-        Subscription subscribe = getEventBus().toObservable()
-                .filter(event -> new GameEventChecker().isFactionJoin(event))
-                .map(gameEvent -> (FactionEvent) gameEvent)
+        Subscription subscribe = getEventBus().streamOf(JoinFaction, FactionEvent.class)
                 .filter(this::isThisFaction)
                 .subscribe(this::joinFaction);
-        subscriptions.add(EventType.JoinFaction, subscribe);
+        subscriptions.add(JoinFaction, subscribe);
     }
 
     private void listenLeaveFactions() {
-        Subscription subscribe = getEventBus().toObservable()
-                .filter(event -> new GameEventChecker().isLeaveFaction(event))
-                .map(gameEvent -> (FactionEvent) gameEvent)
+        Subscription subscribe = getEventBus().streamOf(LeaveFaction, FactionEvent.class)
                 .filter(this::isThisFaction)
                 .subscribe(this::leaveFaction);
-        subscriptions.add(EventType.LeaveFaction, subscribe);
+        subscriptions.add(LeaveFaction, subscribe);
     }
 }

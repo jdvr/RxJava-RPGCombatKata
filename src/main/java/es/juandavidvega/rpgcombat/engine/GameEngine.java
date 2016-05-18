@@ -10,6 +10,8 @@ import es.juandavidvega.rpgcombat.engine.events.props.AttackPropsEvent;
 import es.juandavidvega.rpgcombat.engine.events.props.DamagePropsEvent;
 import es.juandavidvega.rpgcombat.map.RangeCalculator;
 
+import static es.juandavidvega.rpgcombat.engine.events.EventType.*;
+
 public class GameEngine {
 
     private EventBus bus;
@@ -25,17 +27,13 @@ public class GameEngine {
     }
 
     private void subscribeHealth(EventBus bus) {
-        bus.toObservable()
-                .filter(eventChecker::isHealth)
-                .map(gameEvent -> (HealthEvent) gameEvent)
+        bus.streamOf(Health, HealthEvent.class)
                 .filter(this::isSameCharacterOrAllies)
                 .subscribe(this::sendHealth);
     }
 
     private void subscribeAttacks(EventBus bus) {
-        bus.toObservable()
-                .filter(event -> new GameEventChecker().isAttack(event))
-                .map(gameEvent -> (AttackEvent) gameEvent)
+        bus.streamOf(Attack, AttackEvent.class)
                 .filter(this::isNotSameCharacter)
                 .filter(this::isInRange)
                 .filter(this::areNotAllies)
@@ -43,9 +41,7 @@ public class GameEngine {
     }
 
     private void subscribePropsAttacks(EventBus bus) {
-        bus.toObservable()
-                .filter(event -> new GameEventChecker().isPropAttack(event))
-                .map(gameEvent -> (AttackPropsEvent) gameEvent)
+        bus.streamOf(AttackProps, AttackPropsEvent.class)
                 .filter(this::isInRange)
                 .subscribe(this::sendPropDamage);
     }
