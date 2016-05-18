@@ -7,13 +7,13 @@ import rx.subjects.Subject;
 
 public class EventBus {
     private static EventBus bus;
-    private final Subject<Object, Object> subject = new SerializedSubject<>(PublishSubject.create());
+    private final Subject<Event, Event> subject = new SerializedSubject<>(PublishSubject.create());
 
     public void send(Event event) {
         subject.onNext(event);
     }
 
-    public Observable<Object> toObservable() {
+    public Observable<Event> toObservable() {
         return subject;
     }
 
