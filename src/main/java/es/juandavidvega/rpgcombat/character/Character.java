@@ -6,7 +6,6 @@ import es.juandavidvega.rpgcombat.engine.events.character.IncreaseLifeEvent;
 import es.juandavidvega.rpgcombat.engine.events.faction.FactionEvent;
 import es.juandavidvega.rpgcombat.engine.subscription.Subscriptions;
 import es.juandavidvega.rpgcombat.faction.Faction;
-import rx.*;
 import rx.Observable;
 
 import java.util.*;
@@ -23,10 +22,14 @@ public abstract class Character implements Targetable {
     public Character(Health health, Integer level) {
         this.health = health;
         this.level = level;
-        listenDamages();
-        listenHealth();
-        listenJoinFactions();
-        listenLeaveFactions();
+        startListen();
+    }
+
+    private void startListen() {
+        damageEvent();
+        healthEvent();
+        joinFactionsEvent();
+        leaveFactionsEvent();
     }
 
     public void receive(Double damage) {
@@ -76,28 +79,28 @@ public abstract class Character implements Targetable {
         return !isAlive();
     }
 
-    private void listenHealth() {
-        Subscription subscription = observableStreamOf(IncreaseLife, IncreaseLifeEvent.class)
-                .subscribe(this::manageHealth);
-        subscriptions.add(IncreaseLife, subscription);
+    private void healthEvent() {
+        subscriptions.add(IncreaseLife,
+                observableStreamOf(IncreaseLife, IncreaseLifeEvent.class)
+                .subscribe(this::manageHealth));
     }
 
-    private void listenDamages() {
-        Subscription subscribe = observableStreamOf(Damage, DamageEvent.class)
-                .subscribe(this::manageDamage);
-        subscriptions.add(Damage, subscribe);
+    private void damageEvent() {
+        subscriptions.add(Damage,
+                observableStreamOf(Damage, DamageEvent.class)
+                .subscribe(this::manageDamage));
     }
 
-    private void listenJoinFactions() {
-        Subscription subscribe = observableStreamOf(JoinFaction, FactionEvent.class)
-                .subscribe(this::joinFaction);
-        subscriptions.add(JoinFaction, subscribe);
+    private void joinFactionsEvent() {
+        subscriptions.add(JoinFaction,
+                observableStreamOf(JoinFaction, FactionEvent.class)
+                .subscribe(this::joinFaction));
     }
 
-    private void listenLeaveFactions() {
-        Subscription subscribe = observableStreamOf(LeaveFaction, FactionEvent.class)
-                .subscribe(this::leaveFaction);
-        subscriptions.add(LeaveFaction, subscribe);
+    private void leaveFactionsEvent() {
+        subscriptions.add(LeaveFaction,
+                observableStreamOf(LeaveFaction, FactionEvent.class)
+                .subscribe(this::leaveFaction));
     }
 
     private <T extends Event> Observable<T> observableStreamOf(EventType type, Class<T> targetEvent) {
