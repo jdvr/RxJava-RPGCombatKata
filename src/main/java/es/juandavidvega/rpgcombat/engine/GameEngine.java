@@ -47,7 +47,7 @@ public class GameEngine {
     }
 
     private Boolean areNotAllies(AttackEvent attackEvent) {
-        return !attackEvent.areAllies();
+        return attackEvent.areNotAllies();
     }
 
     private Boolean isInRange(AttackEvent attackEvent) {
