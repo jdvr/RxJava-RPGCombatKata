@@ -2,7 +2,7 @@ package es.juandavidvega.rpgcombat.faction;
 
 import es.juandavidvega.rpgcombat.character.Character;
 import es.juandavidvega.rpgcombat.engine.events.EventBus;
-import es.juandavidvega.rpgcombat.engine.events.EventTypes;
+import es.juandavidvega.rpgcombat.engine.events.EventType;
 import es.juandavidvega.rpgcombat.engine.events.GameEventChecker;
 import es.juandavidvega.rpgcombat.engine.events.faction.FactionEvent;
 import es.juandavidvega.rpgcombat.engine.subscription.Subscriptions;
@@ -71,7 +71,7 @@ public class Faction {
                 .map(gameEvent -> (FactionEvent) gameEvent)
                 .filter(this::isThisFaction)
                 .subscribe(this::joinFaction);
-        subscriptions.add(EventTypes.JoinFaction, subscribe);
+        subscriptions.add(EventType.JoinFaction, subscribe);
     }
 
     private void listenLeaveFactions() {
@@ -80,6 +80,6 @@ public class Faction {
                 .map(gameEvent -> (FactionEvent) gameEvent)
                 .filter(this::isThisFaction)
                 .subscribe(this::leaveFaction);
-        subscriptions.add(EventTypes.LeaveFaction, subscribe);
+        subscriptions.add(EventType.LeaveFaction, subscribe);
     }
 }

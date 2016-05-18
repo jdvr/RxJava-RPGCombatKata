@@ -2,7 +2,7 @@ package es.juandavidvega.rpgcombat.engine.events.character;
 
 import es.juandavidvega.rpgcombat.character.Character;
 import es.juandavidvega.rpgcombat.engine.events.Event;
-import es.juandavidvega.rpgcombat.engine.events.EventTypes;
+import es.juandavidvega.rpgcombat.engine.events.EventType;
 
 public class DamageEvent extends Event {
 
@@ -23,7 +23,7 @@ public class DamageEvent extends Event {
     }
 
     @Override
-    public EventTypes type() {
-        return EventTypes.Damage;
+    public EventType type() {
+        return EventType.Damage;
     }
 }

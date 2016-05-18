@@ -3,7 +3,7 @@ package es.juandavidvega.rpgcombat.engine.events.game;
 import es.juandavidvega.rpgcombat.character.Character;
 import es.juandavidvega.rpgcombat.engine.events.Event;
 import es.juandavidvega.rpgcombat.engine.acctions.HealthAction;
-import es.juandavidvega.rpgcombat.engine.events.EventTypes;
+import es.juandavidvega.rpgcombat.engine.events.EventType;
 
 /**
  * Created by jdvr on 15/05/16.
@@ -26,8 +26,8 @@ public class HealthEvent extends Event {
     }
 
     @Override
-    public EventTypes type() {
-        return EventTypes.Health;
+    public EventType type() {
+        return EventType.Health;
     }
 
     public Double points() {

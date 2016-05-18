@@ -3,7 +3,7 @@ package es.juandavidvega.rpgcombat.engine.events.game;
 import es.juandavidvega.rpgcombat.engine.acctions.Attack;
 import es.juandavidvega.rpgcombat.character.Character;
 import es.juandavidvega.rpgcombat.engine.events.Event;
-import es.juandavidvega.rpgcombat.engine.events.EventTypes;
+import es.juandavidvega.rpgcombat.engine.events.EventType;
 
 public class AttackEvent extends Event {
     public static final int DAMAGE_CHANGE_LEVEL_DIFFERENCE = 5;
@@ -28,8 +28,8 @@ public class AttackEvent extends Event {
     }
 
     @Override
-    public EventTypes type() {
-        return EventTypes.Attack;
+    public EventType type() {
+        return EventType.Attack;
     }
 
     public boolean attackerIsAtLeastFiveLevelAboveTarget() {

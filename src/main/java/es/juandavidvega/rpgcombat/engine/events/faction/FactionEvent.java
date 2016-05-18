@@ -2,16 +2,16 @@ package es.juandavidvega.rpgcombat.engine.events.faction;
 
 import es.juandavidvega.rpgcombat.character.Character;
 import es.juandavidvega.rpgcombat.engine.events.Event;
-import es.juandavidvega.rpgcombat.engine.events.EventTypes;
+import es.juandavidvega.rpgcombat.engine.events.EventType;
 import es.juandavidvega.rpgcombat.faction.Faction;
 
 public class FactionEvent extends Event{
 
     private final Faction faction;
     private final Character target;
-    private EventTypes type;
+    private EventType type;
 
-    public FactionEvent(Faction faction, Character target, EventTypes type) {
+    public FactionEvent(Faction faction, Character target, EventType type) {
         this.faction = faction;
         this.target = target;
         this.type = type;
@@ -22,7 +22,7 @@ public class FactionEvent extends Event{
     }
 
     @Override
-    public EventTypes type() {
+    public EventType type() {
         return type;
     }
 

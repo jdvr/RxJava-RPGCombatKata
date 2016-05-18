@@ -1,19 +1,19 @@
 package es.juandavidvega.rpgcombat.engine.subscription;
 
-import es.juandavidvega.rpgcombat.engine.events.EventTypes;
+import es.juandavidvega.rpgcombat.engine.events.EventType;
 import rx.Subscription;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Subscriptions {
-    private final Map<EventTypes, Subscription> subscriptions = new HashMap<>();
+    private final Map<EventType, Subscription> subscriptions = new HashMap<>();
 
-    public void add(EventTypes event, Subscription subscription){
+    public void add(EventType event, Subscription subscription){
         subscriptions.put(event, subscription);
     }
 
-    public void unsubscribe(EventTypes event){
+    public void unsubscribe(EventType event){
         Subscription subscription = subscriptions.get(event);
         if (subscription == null) return;
         subscription.unsubscribe();

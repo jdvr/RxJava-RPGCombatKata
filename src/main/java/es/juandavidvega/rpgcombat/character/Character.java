@@ -79,7 +79,7 @@ public abstract class Character implements Targetable {
                 .map(gameEvent -> (IncreaseLifeEvent) gameEvent)
                 .filter(this::isMe)
                 .subscribe(this::manageHealth);
-        subscriptions.add(EventTypes.IncreaseLife, subscription);
+        subscriptions.add(EventType.IncreaseLife, subscription);
     }
 
     private void listenDamages() {
@@ -88,7 +88,7 @@ public abstract class Character implements Targetable {
                 .map(gameEvent -> (DamageEvent) gameEvent)
                 .filter(this::isMe)
                 .subscribe(this::manageDamage);
-        subscriptions.add(EventTypes.Damage, subscribe);
+        subscriptions.add(EventType.Damage, subscribe);
     }
 
     private void listenJoinFactions() {
@@ -97,7 +97,7 @@ public abstract class Character implements Targetable {
                 .map(gameEvent -> (FactionEvent) gameEvent)
                 .filter(this::isMe)
                 .subscribe(this::joinFaction);
-        subscriptions.add(EventTypes.JoinFaction, subscribe);
+        subscriptions.add(EventType.JoinFaction, subscribe);
     }
 
     private void listenLeaveFactions() {
@@ -106,7 +106,7 @@ public abstract class Character implements Targetable {
                 .map(gameEvent -> (FactionEvent) gameEvent)
                 .filter(this::isMe)
                 .subscribe(this::leaveFaction);
-        subscriptions.add(EventTypes.LeaveFaction, subscribe);
+        subscriptions.add(EventType.LeaveFaction, subscribe);
     }
 
     private Boolean isMe(Event event) {

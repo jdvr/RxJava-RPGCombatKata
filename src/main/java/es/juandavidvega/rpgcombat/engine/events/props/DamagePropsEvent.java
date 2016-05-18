@@ -2,7 +2,7 @@ package es.juandavidvega.rpgcombat.engine.events.props;
 
 import es.juandavidvega.rpgcombat.character.Character;
 import es.juandavidvega.rpgcombat.engine.events.Event;
-import es.juandavidvega.rpgcombat.engine.events.EventTypes;
+import es.juandavidvega.rpgcombat.engine.events.EventType;
 import es.juandavidvega.rpgcombat.props.House;
 
 public class DamagePropsEvent extends Event{
@@ -18,8 +18,8 @@ public class DamagePropsEvent extends Event{
 
 
     @Override
-    public EventTypes type() {
-        return EventTypes.DamageProps;
+    public EventType type() {
+        return EventType.DamageProps;
     }
 
     @Override
