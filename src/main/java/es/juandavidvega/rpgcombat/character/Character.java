@@ -6,7 +6,8 @@ import es.juandavidvega.rpgcombat.engine.events.character.IncreaseLifeEvent;
 import es.juandavidvega.rpgcombat.engine.events.faction.FactionEvent;
 import es.juandavidvega.rpgcombat.engine.subscription.Subscriptions;
 import es.juandavidvega.rpgcombat.faction.Faction;
-import rx.Subscription;
+import rx.*;
+import rx.Observable;
 
 import java.util.*;
 
@@ -76,31 +77,31 @@ public abstract class Character implements Targetable {
     }
 
     private void listenHealth() {
-        Subscription subscription = getEventBus().streamOf(IncreaseLife, IncreaseLifeEvent.class)
-                .filter(this::isMe)
+        Subscription subscription = observableStreamOf(IncreaseLife, IncreaseLifeEvent.class)
                 .subscribe(this::manageHealth);
         subscriptions.add(IncreaseLife, subscription);
     }
 
     private void listenDamages() {
-        Subscription subscribe = getEventBus().streamOf(Damage, DamageEvent.class)
-                .filter(this::isMe)
+        Subscription subscribe = observableStreamOf(Damage, DamageEvent.class)
                 .subscribe(this::manageDamage);
         subscriptions.add(Damage, subscribe);
     }
 
     private void listenJoinFactions() {
-        Subscription subscribe = getEventBus().streamOf(JoinFaction, FactionEvent.class)
-                .filter(this::isMe)
+        Subscription subscribe = observableStreamOf(JoinFaction, FactionEvent.class)
                 .subscribe(this::joinFaction);
         subscriptions.add(JoinFaction, subscribe);
     }
 
     private void listenLeaveFactions() {
-        Subscription subscribe = getEventBus().streamOf(LeaveFaction, FactionEvent.class)
-                .filter(this::isMe)
+        Subscription subscribe = observableStreamOf(LeaveFaction, FactionEvent.class)
                 .subscribe(this::leaveFaction);
         subscriptions.add(LeaveFaction, subscribe);
+    }
+
+    private <T extends Event> Observable<T> observableStreamOf(EventType type, Class<T> targetEvent) {
+        return getEventBus().streamOf(type, targetEvent).filter(this::isMe);
     }
 
     private Boolean isMe(Event event) {
