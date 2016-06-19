@@ -20,8 +20,7 @@ public class House implements Targetable{
 
 
     private void listenDamages() {
-        Observable<DamagePropsEvent> damagePropsEventObservable = getBus().streamOf(DamageProps);
-        damagePropsEventObservable
+        getBus().<DamagePropsEvent>streamOf(DamageProps)
                 .filter(this::IsThisTheTarget)
                 .subscribe(this::receive);
     }

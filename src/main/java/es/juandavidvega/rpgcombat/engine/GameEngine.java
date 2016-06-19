@@ -28,15 +28,13 @@ public class GameEngine {
     }
 
     private void subscribeHealth(EventBus bus) {
-        Observable<HealthEvent> healthEventObservable = bus.streamOf(Health);
-        healthEventObservable
+        bus.<HealthEvent>streamOf(Health)
                 .filter(this::isSameCharacterOrAllies)
                 .subscribe(this::sendHealth);
     }
 
     private void subscribeAttacks(EventBus bus) {
-        Observable<AttackEvent> attackEventObservable = bus.streamOf(Attack);
-        attackEventObservable
+        bus.<AttackEvent>streamOf(Attack)
                 .filter(this::isNotSameCharacter)
                 .filter(this::isInRange)
                 .filter(this::areNotAllies)
@@ -44,8 +42,7 @@ public class GameEngine {
     }
 
     private void subscribePropsAttacks(EventBus bus) {
-        Observable<AttackPropsEvent> attackPropsEventObservable = bus.streamOf(AttackProps);
-        attackPropsEventObservable
+        bus.<AttackPropsEvent>streamOf(AttackProps)
                 .filter(this::isInRange)
                 .subscribe(this::sendPropDamage);
     }

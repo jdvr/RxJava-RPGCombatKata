@@ -104,8 +104,7 @@ public abstract class Character implements Targetable {
     }
 
     private <T extends Event> Observable<T> getObservable(EventType type) {
-        Observable<T> observable = getEventBus().streamOf(type);
-        return observable.filter(this::isMe);
+        return getEventBus().<T>streamOf(type).filter(this::isMe);
     }
 
     private Boolean isMe(Event event) {

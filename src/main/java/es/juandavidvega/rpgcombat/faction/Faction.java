@@ -67,16 +67,14 @@ public class Faction {
 
 
     private void listenJoinFactions() {
-        Observable<FactionEvent> factionEventObservable = getEventBus().streamOf(JoinFaction);
-        Subscription subscribe = factionEventObservable
+        Subscription subscribe = getEventBus().<FactionEvent>streamOf(JoinFaction)
                 .filter(this::isThisFaction)
                 .subscribe(this::joinFaction);
         subscriptions.add(JoinFaction, subscribe);
     }
 
     private void listenLeaveFactions() {
-        Observable<FactionEvent> factionEventObservable = getEventBus().streamOf(LeaveFaction);
-        Subscription subscribe = factionEventObservable
+        Subscription subscribe = getEventBus().<FactionEvent>streamOf(LeaveFaction)
                 .filter(this::isThisFaction)
                 .subscribe(this::leaveFaction);
         subscriptions.add(LeaveFaction, subscribe);
