@@ -1,6 +1,7 @@
 package es.juandavidvega.rpgcombat.engine.events;
 
 import rx.Observable;
+import rx.functions.Func1;
 import rx.subjects.PublishSubject;
 import rx.subjects.SerializedSubject;
 import rx.subjects.Subject;
@@ -14,7 +15,8 @@ public class EventBus {
     }
 
     public <T> Observable<T>  streamOf(EventType type, Class<T> targetEvent) {
-        return toObservable().filter(event -> event.is(type)).map(targetEvent::cast);
+        Func1<Event, T> castToGeneric = filteredEvent -> (T) filteredEvent;
+        return toObservable().filter(event -> event.is(type)).map(castToGeneric);
     }
 
     public static EventBus get(){
