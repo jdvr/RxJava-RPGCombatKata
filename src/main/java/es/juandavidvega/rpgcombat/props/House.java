@@ -3,10 +3,7 @@ package es.juandavidvega.rpgcombat.props;
 
 import es.juandavidvega.rpgcombat.character.Health;
 import es.juandavidvega.rpgcombat.engine.events.EventBus;
-import es.juandavidvega.rpgcombat.engine.events.EventType;
-import es.juandavidvega.rpgcombat.engine.events.GameEventChecker;
 import es.juandavidvega.rpgcombat.engine.events.Targetable;
-import es.juandavidvega.rpgcombat.engine.events.props.AttackPropsEvent;
 import es.juandavidvega.rpgcombat.engine.events.props.DamagePropsEvent;
 import rx.Observable;
 
@@ -23,7 +20,7 @@ public class House implements Targetable{
 
 
     private void listenDamages() {
-        Observable<DamagePropsEvent> damagePropsEventObservable = getBus().streamOf(DamageProps, DamagePropsEvent.class);
+        Observable<DamagePropsEvent> damagePropsEventObservable = getBus().streamOf(DamageProps);
         damagePropsEventObservable
                 .filter(this::IsThisTheTarget)
                 .subscribe(this::receive);

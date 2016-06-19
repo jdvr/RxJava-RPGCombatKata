@@ -14,7 +14,7 @@ public class EventBus {
         subject.onNext(event);
     }
 
-    public <T> Observable<T>  streamOf(EventType type, Class<T> targetEvent) {
+    public <T> Observable<T>  streamOf(EventType type) {
         return toObservable()
                 .filter(event -> event.is(type))
                 .map(filteredEvent -> (T) filteredEvent);
