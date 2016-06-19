@@ -6,6 +6,7 @@ import es.juandavidvega.rpgcombat.engine.events.EventType;
 import es.juandavidvega.rpgcombat.engine.events.GameEventChecker;
 import es.juandavidvega.rpgcombat.engine.events.faction.FactionEvent;
 import es.juandavidvega.rpgcombat.engine.subscription.Subscriptions;
+import rx.Observable;
 import rx.Subscription;
 
 import java.util.ArrayList;
@@ -68,14 +69,16 @@ public class Faction {
 
 
     private void listenJoinFactions() {
-        Subscription subscribe = getEventBus().streamOf(JoinFaction, FactionEvent.class)
+        Observable<FactionEvent> factionEventObservable = getEventBus().streamOf(JoinFaction, FactionEvent.class);
+        Subscription subscribe = factionEventObservable
                 .filter(this::isThisFaction)
                 .subscribe(this::joinFaction);
         subscriptions.add(JoinFaction, subscribe);
     }
 
     private void listenLeaveFactions() {
-        Subscription subscribe = getEventBus().streamOf(LeaveFaction, FactionEvent.class)
+        Observable<FactionEvent> factionEventObservable = getEventBus().streamOf(LeaveFaction, FactionEvent.class);
+        Subscription subscribe = factionEventObservable
                 .filter(this::isThisFaction)
                 .subscribe(this::leaveFaction);
         subscriptions.add(LeaveFaction, subscribe);

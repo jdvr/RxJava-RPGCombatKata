@@ -81,30 +81,31 @@ public abstract class Character implements Targetable {
 
     private void healthEvent() {
         subscriptions.add(IncreaseLife,
-                observableStreamOf(IncreaseLife, IncreaseLifeEvent.class)
+                this.<IncreaseLifeEvent>getObservable(IncreaseLife)
                 .subscribe(this::manageHealth));
     }
 
     private void damageEvent() {
         subscriptions.add(Damage,
-                observableStreamOf(Damage, DamageEvent.class)
+                this.<DamageEvent>getObservable(Damage)
                 .subscribe(this::manageDamage));
     }
 
     private void joinFactionsEvent() {
         subscriptions.add(JoinFaction,
-                observableStreamOf(JoinFaction, FactionEvent.class)
+                this.<FactionEvent>getObservable(JoinFaction)
                 .subscribe(this::joinFaction));
     }
 
     private void leaveFactionsEvent() {
         subscriptions.add(LeaveFaction,
-                observableStreamOf(LeaveFaction, FactionEvent.class)
+                this.<FactionEvent>getObservable(LeaveFaction)
                 .subscribe(this::leaveFaction));
     }
 
-    private <T extends Event> Observable<T> observableStreamOf(EventType type, Class<T> targetEvent) {
-        return getEventBus().streamOf(type, targetEvent).filter(this::isMe);
+    private <T extends Event> Observable<T> getObservable(EventType type) {
+        Observable<T> observable = getEventBus().streamOf(type, null);
+        return observable.filter(this::isMe);
     }
 
     private Boolean isMe(Event event) {

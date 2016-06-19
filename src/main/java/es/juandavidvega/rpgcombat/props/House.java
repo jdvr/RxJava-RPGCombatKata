@@ -8,6 +8,7 @@ import es.juandavidvega.rpgcombat.engine.events.GameEventChecker;
 import es.juandavidvega.rpgcombat.engine.events.Targetable;
 import es.juandavidvega.rpgcombat.engine.events.props.AttackPropsEvent;
 import es.juandavidvega.rpgcombat.engine.events.props.DamagePropsEvent;
+import rx.Observable;
 
 import static es.juandavidvega.rpgcombat.engine.events.EventType.*;
 
@@ -22,7 +23,8 @@ public class House implements Targetable{
 
 
     private void listenDamages() {
-        getBus().streamOf(DamageProps, DamagePropsEvent.class)
+        Observable<DamagePropsEvent> damagePropsEventObservable = getBus().streamOf(DamageProps, DamagePropsEvent.class);
+        damagePropsEventObservable
                 .filter(this::IsThisTheTarget)
                 .subscribe(this::receive);
     }
