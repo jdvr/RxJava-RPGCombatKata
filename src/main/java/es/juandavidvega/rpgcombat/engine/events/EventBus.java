@@ -15,8 +15,9 @@ public class EventBus {
     }
 
     public <T> Observable<T>  streamOf(EventType type, Class<T> targetEvent) {
-        Func1<Event, T> castToGeneric = filteredEvent -> (T) filteredEvent;
-        return toObservable().filter(event -> event.is(type)).map(castToGeneric);
+        return toObservable()
+                .filter(event -> event.is(type))
+                .map(filteredEvent -> (T) filteredEvent);
     }
 
     public static EventBus get(){
