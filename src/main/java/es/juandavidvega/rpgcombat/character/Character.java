@@ -120,10 +120,8 @@ public abstract class Character implements Targetable {
     }
 
     public Boolean isAllieOf(Character target) {
-        long count = target.factions()
+        return target.factions()
                 .stream()
-                .filter(factions::contains)
-                .count();
-        return count != 0;
+                .anyMatch(factions::contains);
     }
 }
