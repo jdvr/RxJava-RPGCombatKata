@@ -1,5 +1,7 @@
 package es.juandavidvega.rpgcombat.engine.events;
 
+import java.util.Optional;
+
 import rx.Observable;
 import rx.functions.Func1;
 import rx.subjects.PublishSubject;
@@ -21,7 +23,7 @@ public class EventBus {
     }
 
     public static EventBus get(){
-        return bus == null ? createBus() : bus;
+        return Optional.ofNullable(bus).orElseGet(EventBus::createBus);
     }
 
     private Observable<Event> toObservable() {
