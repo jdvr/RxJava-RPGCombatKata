@@ -6,7 +6,7 @@ import es.juandavidvega.rpgcombat.engine.events.Event;
 import es.juandavidvega.rpgcombat.engine.events.EventType;
 import es.juandavidvega.rpgcombat.props.House;
 
-public class AttackPropsEvent extends Event{
+public class AttackPropsEvent implements Event{
 
     private final Attack attack;
     private final House house;

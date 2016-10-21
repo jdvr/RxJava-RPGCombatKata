@@ -9,7 +9,6 @@ import es.juandavidvega.rpgcombat.engine.events.game.HealthEvent;
 import es.juandavidvega.rpgcombat.engine.events.props.AttackPropsEvent;
 import es.juandavidvega.rpgcombat.engine.events.props.DamagePropsEvent;
 import es.juandavidvega.rpgcombat.map.RangeCalculator;
-import rx.Observable;
 
 import static es.juandavidvega.rpgcombat.engine.events.EventType.*;
 
@@ -61,16 +60,16 @@ public class GameEngine {
 
 
     private void sendPropDamage (AttackPropsEvent attackPropsEvent) {
-        new DamagePropsEvent(attackPropsEvent.house(), attackPropsEvent.damage()).publishOn();
+        new DamagePropsEvent(attackPropsEvent.house(), attackPropsEvent.damage()).publish();
     }
 
     private void sendDamage(AttackEvent event) {
         double damage = new DamageEventPointsCalculator(event).calculate();
-        new DamageEvent(event.target(), damage).publishOn();
+        new DamageEvent(event.target(), damage).publish();
     }
 
     private void sendHealth(HealthEvent event) {
-        new IncreaseLifeEvent(event.target(), event.points()).publishOn();
+        new IncreaseLifeEvent(event.target(), event.points()).publish();
     }
 
     private boolean isSameCharacterOrAllies(HealthEvent healthEvent) {

@@ -4,7 +4,7 @@ import es.juandavidvega.rpgcombat.character.Character;
 import es.juandavidvega.rpgcombat.engine.events.Event;
 import es.juandavidvega.rpgcombat.engine.events.EventType;
 
-public class IncreaseLifeEvent extends Event {
+public class IncreaseLifeEvent implements Event {
 
     private Character target;
     private final Double points;

@@ -1,14 +1,14 @@
 package es.juandavidvega.rpgcombat.engine.events;
 
-public abstract class Event {
-    public abstract Targetable target();
-    public abstract EventType type();
+public interface Event {
+    Targetable target();
+    EventType type();
 
-    public void publishOn(){
+    default void publish(){
         EventBus.get().send(this);
     }
 
-    public boolean is(EventType type) {
+    default boolean is(EventType type) {
         return type.equals(type());
     }
 }

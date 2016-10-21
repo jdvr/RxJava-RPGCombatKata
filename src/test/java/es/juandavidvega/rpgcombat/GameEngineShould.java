@@ -44,7 +44,7 @@ public class GameEngineShould {
     public void
     send_attack_between_characters (){
         Attack attack = new Attack(attacker, 100);
-        new AttackEvent(attack, target).publishOn();
+        new AttackEvent(attack, target).publish();
         assertThat(target.health().points()).isEqualTo(900);
         assertThat(attacker.health().points()).isEqualTo(1000);
     }
@@ -54,7 +54,7 @@ public class GameEngineShould {
     avoid_to_character_damage_to_himself() {
         double pointsBeforeAttack = attacker.health().points();
         Attack attack = new Attack(attacker, 100);
-        new AttackEvent(attack, attacker).publishOn();
+        new AttackEvent(attack, attacker).publish();
         assertThat(attacker.health().points()).isEqualTo(pointsBeforeAttack);
     }
 
@@ -65,7 +65,7 @@ public class GameEngineShould {
         double pointsBeforeAttack = lowHealthCharacter.health().points();
         double addedPoints = 50;
         HealthAction health = new HealthAction(lowHealthCharacter, addedPoints);
-        new HealthEvent(health, lowHealthCharacter).publishOn();
+        new HealthEvent(health, lowHealthCharacter).publish();
         assertThat(lowHealthCharacter.health().points()).isEqualTo(pointsBeforeAttack + addedPoints);
     }
 
@@ -75,7 +75,7 @@ public class GameEngineShould {
         attacker = CharacterTestBuilder.newMeleeFighterWith(CharacterTestBuilder.maxHealth(), 40);
         target = CharacterTestBuilder.newMeleeFighterWith(CharacterTestBuilder.maxHealth(), 50);
         Attack attack = new Attack(attacker, 100);
-        new AttackEvent(attack, target).publishOn();
+        new AttackEvent(attack, target).publish();
         assertThat(target.health().points()).isEqualTo(950);
     }
 
@@ -85,7 +85,7 @@ public class GameEngineShould {
         attacker = CharacterTestBuilder.newMeleeFighterWith(CharacterTestBuilder.maxHealth(), 50);
         target = CharacterTestBuilder.newMeleeFighterWith(CharacterTestBuilder.maxHealth(), 40);
         Attack attack = new Attack(attacker, 100);
-        new AttackEvent(attack, target).publishOn();
+        new AttackEvent(attack, target).publish();
         assertThat(target.health().points()).isEqualTo(850);
     }
 
@@ -97,7 +97,7 @@ public class GameEngineShould {
         Character otherEnemy = anyCharacter();
         when(rangeCalculator.rangeBetween(otherAttacker, otherEnemy)).thenReturn(5);
         Attack attack = new Attack(otherAttacker, 100);
-        new AttackEvent(attack, otherEnemy).publishOn();
+        new AttackEvent(attack, otherEnemy).publish();
         assertThat(otherEnemy.health().points()).isEqualTo(otherAttacker.health().points());
     }
 
@@ -108,7 +108,7 @@ public class GameEngineShould {
         Character otherEnemy = anyCharacter();
         when(rangeCalculator.rangeBetween(otherAttacker, otherEnemy)).thenReturn(15);
         Attack attack = new Attack(otherAttacker, 100);
-        new AttackEvent(attack, otherEnemy).publishOn();
+        new AttackEvent(attack, otherEnemy).publish();
         assertThat(otherEnemy.health().points()).isEqualTo(900);
     }
 
@@ -119,7 +119,7 @@ public class GameEngineShould {
         attacker.addFaction(faction);
         target.addFaction(faction);
         Attack attack = new Attack(attacker, 100);
-        new AttackEvent(attack, target).publishOn();
+        new AttackEvent(attack, target).publish();
         assertThat(attacker.health().points()).isEqualTo(target.health().points());
     }
 
@@ -135,7 +135,7 @@ public class GameEngineShould {
         double pointsBeforeHealth = allie.health().points();
         double addedPoints = 50;
         HealthAction health = new HealthAction(healer, addedPoints);
-        new HealthEvent(health, allie).publishOn();
+        new HealthEvent(health, allie).publish();
         assertThat(allie.health().points()).isEqualTo(pointsBeforeHealth + addedPoints);
     }
 
@@ -144,7 +144,7 @@ public class GameEngineShould {
     send_damage_to_items_from_characters() {
         House house = new House(new Health(2000d));
         Attack attack = new Attack(attacker, 1000);
-        new AttackPropsEvent(attack, house).publishOn();
+        new AttackPropsEvent(attack, house).publish();
         assertThat(house.health().points()).isEqualTo(1000d);
     }
 

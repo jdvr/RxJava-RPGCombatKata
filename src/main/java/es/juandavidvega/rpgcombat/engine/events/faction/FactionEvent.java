@@ -5,7 +5,7 @@ import es.juandavidvega.rpgcombat.engine.events.Event;
 import es.juandavidvega.rpgcombat.engine.events.EventType;
 import es.juandavidvega.rpgcombat.faction.Faction;
 
-public class FactionEvent extends Event{
+public class FactionEvent implements Event{
 
     private final Faction faction;
     private final Character target;
